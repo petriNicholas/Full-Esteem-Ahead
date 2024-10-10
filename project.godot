@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Full-esteem-ahead"
-run/main_scene="res://res/world.tscn"
+run/main_scene="res://res/World.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
