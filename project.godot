@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Full-esteem-ahead"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="res://res/World.tscn"
+config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="Full-esteem-ahead"
+
+[editor]
+
+naming/scene_name_casing=1
