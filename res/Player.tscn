@@ -9,8 +9,9 @@ script = ExtResource("1_m3vse")
 movementComponent = NodePath("MovementComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(548, 323)
+position = Vector2(717, 437)
 texture = ExtResource("2_0iynb")
+offset = Vector2(-169, -114)
 
 [node name="MovementComponent" type="Node2D" parent="."]
 script = ExtResource("3_dh2ki")

@@ -7,7 +7,7 @@ public partial class MovementComponent : Node2D
 	private Vector2 moveVector = Vector2.Zero;
 	
 	private bool _isRolling = false;
-	private float rollingTimer = 0.5f;
+	private float _rollingTimer = 0.5f;
 
 	public void Movement(double delta)
 	{
@@ -16,36 +16,24 @@ public partial class MovementComponent : Node2D
 		CharacterBody2D player = GetParent<CharacterBody2D>();
 		Vector2 velocity = Vector2.Zero;
 
-		if(_isRolling)
-		{
-			rollingTimer -= (float)delta;
-			if (rollingTimer == 0) 
-			{
-				_isRolling = false;
-				rollingTimer = 0.5f;
-			}
-		}
-		else
-		{
-			velocity = moveVector.Normalized() * _speed;
-			player.Velocity = velocity;
-			player.MoveAndSlide();
-		}
-		
-		
+		HandleRoll(delta);
+
+		velocity = moveVector.Normalized() * _speed;
+		player.Velocity = velocity;
+		player.MoveAndSlide();
 	}
 
 	public void Roll()
 	{
 		CharacterBody2D player = GetParent<CharacterBody2D>();
-		Vector2 rollV = new Vector2(10, 10);
+		Vector2 moveVector = Input.GetVector("left", "right", "up", "down");
 
-		rollV.Rotated( player.Position.AngleTo(GetGlobalMousePosition()) );
+		Vector2 velocity = moveVector.Normalized() * _speed * 10;
 
-		Vector2 velocity = rollV.Normalized() * _speed;
 		_isRolling = true;
-
+		_rollingTimer = 0.5f;
 		player.Velocity = velocity;
+
 		player.MoveAndSlide();
 	}
 
@@ -56,10 +44,23 @@ public partial class MovementComponent : Node2D
 			if (eventKey.IsActionReleased("roll") && !_isRolling)
 			{
 				Roll();
-
+				GD.Print("Roll");
 				@event.Set("handled", true);
 			}
 		}
 	}
 
+	private void HandleRoll(double delta)
+	{
+		if (_isRolling)
+		{
+			_rollingTimer -= (float)delta;
+
+			if (_rollingTimer <= 0)
+			{
+				_isRolling = false;
+				_rollingTimer = 0.5f;
+			}
+		}
+	}
 }
