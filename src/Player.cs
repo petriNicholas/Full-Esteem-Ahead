@@ -5,6 +5,7 @@ public partial class Player : CharacterBody2D
 {
 
 	[Export] private MovementComponent movementComponent;
+	[Export] private HealthComponent healthComponent;
 
 	public override void _PhysicsProcess(double delta)
 	{
