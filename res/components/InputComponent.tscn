@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1jtu2bikl35h"]
+
+[ext_resource type="Script" path="res://src/WsadComponent.cs" id="1_ttnhv"]
+
+[node name="WsadComponent" type="Node"]
+script = ExtResource("1_ttnhv")

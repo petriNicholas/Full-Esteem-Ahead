@@ -16,3 +16,4 @@ offset = Vector2(-169, -114)
 [node name="MovementComponent" type="Node2D" parent="."]
 script = ExtResource("3_dh2ki")
 _speed = 200.476
+_wsadComponent = NodePath("WsadComponent.tscn")
