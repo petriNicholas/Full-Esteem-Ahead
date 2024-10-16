@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://bnhcvln48rmn2" path="res://icon.svg" id="2_0iynb"]
 [ext_resource type="Script" path="res://src/MovementComponent.cs" id="3_dh2ki"]
-[ext_resource type="PackedScene" uid="uid://blasiyoyxevnd" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
+[ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent")]
 script = ExtResource("1_m3vse")
