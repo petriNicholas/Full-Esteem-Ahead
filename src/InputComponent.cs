@@ -9,4 +9,18 @@ public partial class InputComponent : Node2D
 
 		return moveVector;
 	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		MovementComponent movementComp = GetParent<MovementComponent>();
+
+		if (@event is InputEventKey eventKey)
+		{
+			if (eventKey.IsActionReleased("roll") && !movementComp.IsRolling())
+			{
+				movementComp.Roll();
+				@event.Set("handled", true);
+			}
+		}
+	}
 }

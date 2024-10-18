@@ -40,18 +40,6 @@ public partial class MovementComponent : Node2D
 		parentNode.MoveAndSlide();
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is InputEventKey eventKey)
-		{
-			if (eventKey.IsActionReleased("roll") && !_isRolling)
-			{
-				Roll();
-				@event.Set("handled", true);
-			}
-		}
-	}
-
 	private void HandleRoll(double delta)
 	{
 		if (_isRolling)
@@ -64,5 +52,10 @@ public partial class MovementComponent : Node2D
 				_rollingTimer = 0.5f;
 			}
 		}
+	}
+
+	public bool IsRolling()
+	{
+		return _isRolling;
 	}
 }
