@@ -4,17 +4,17 @@ using System;
 public partial class HurtboxComponent : Area2D
 {
 	[Signal]
-	public delegate void DamageEventHandler(float amount);
+	public delegate void DamageEventHandler(int amount);
 
 	[Export]
 	public HealthComponent HealthComponent {get; set;}
 
-	public void ApplyDamage(float amount)
+	public void ApplyDamage(int amount)
 	{
 		if(HealthComponent != null)
 		{
-			HealthComponent.Damage(amount);
-			EmitSignal(nameof(Damaged), amount);
+			HealthComponent.TakeDamage(amount);
+			EmitSignal(nameof(Damage), amount);
 		}
 	}
 }

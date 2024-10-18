@@ -1,21 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=8 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://bnhcvln48rmn2" path="res://icon.svg" id="2_0iynb"]
 [ext_resource type="Script" path="res://src/MovementComponent.cs" id="3_dh2ki"]
 [ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
+[ext_resource type="PackedScene" uid="uid://dijji53318r0p" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3obg4"]
+size = Vector2(123, 123)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu5c3"]
+size = Vector2(126, 126)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent", "healthComponent")]
 script = ExtResource("1_m3vse")
 movementComponent = NodePath("MovementComponent")
+healthComponent = NodePath("HealthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(717, 437)
 texture = ExtResource("2_0iynb")
-offset = Vector2(-169, -114)
 
 [node name="MovementComponent" type="Node2D" parent="."]
 script = ExtResource("3_dh2ki")
 _speed = 200.476
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+visible = false
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_3obg4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_bu5c3")

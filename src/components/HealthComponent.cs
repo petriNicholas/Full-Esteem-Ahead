@@ -46,13 +46,13 @@ public partial class HealthComponent : Node
 			int oldHealth = currentHealth;
 			currentHealth = value;
 
-			EmitSignal(nameof(HealthChangedEventHandler), currentHealth);
+			EmitSignal(nameof(HealthChanged), currentHealth);
 
 			if(currentHealth <= 0 && !isDead)
 			{
 				currentHealth = 0;
 				isDead = true;
-				EmitSignal(nameof(DiedEventHandler));
+				EmitSignal(nameof(Died));
 				OnDeath();
 			}
 			else if(currentHealth > maxHealth)
@@ -63,7 +63,7 @@ public partial class HealthComponent : Node
 			{
 				isDead = false;
 
-				EmitSignal(nameof(RevivedEventHandler));
+				EmitSignal(nameof(Revived));
 			}
 		}
 	}
@@ -83,7 +83,7 @@ public partial class HealthComponent : Node
 		int oldHealth = CurrentHealth;
 		CurrentHealth -= damage;
 
-		EmitSignal(nameof(DamagedEventHandler), oldHealth - CurrentHealth);
+		EmitSignal(nameof(Damaged), oldHealth - CurrentHealth);
 	}
 	
 	public void Heal(int amount,  bool canRevive = false)
@@ -93,11 +93,11 @@ public partial class HealthComponent : Node
 		int oldHealth = CurrentHealth;
 		CurrentHealth += amount;
 
-		EmitSignal(nameof(HealedEventHandler), CurrentHealth - oldHealth);
+		EmitSignal(nameof(Healed), CurrentHealth - oldHealth);
 
 		if (CurrentHealth == MaxHealth)
 		{
-			EmitSignal(nameof(HealedFullyEventHandler));
+			EmitSignal(nameof(HealedFully));
 		}
 	}
 

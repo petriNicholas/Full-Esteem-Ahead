@@ -10,3 +10,4 @@
 [node name="Rat" parent="." instance=ExtResource("2_0qas2")]
 position = Vector2(153, 216)
 scale = Vector2(3, 3)
+motion_mode = 0
