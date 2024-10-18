@@ -7,19 +7,16 @@ public partial class MovementComponent : Node2D
 	private Vector2 moveVector = Vector2.Zero;
 	[Export] private InputComponent _InputComponent;
 	
+
 	private bool _isRolling = false;
 	private float _rollingTimer = 0.5f;
-
-    public override void _Ready()
-    {
-        _InputComponent = GetNode<InputComponent>("InputComponent");
-    }
 
     public void Movement(double delta)
 	{
 		moveVector = _InputComponent.UserInputMovement();
 
 		CharacterBody2D parentNode = GetParent<CharacterBody2D>();
+
 		Vector2 velocity = Vector2.Zero;
 
 		HandleRoll(delta);
@@ -50,7 +47,6 @@ public partial class MovementComponent : Node2D
 			if (eventKey.IsActionReleased("roll") && !_isRolling)
 			{
 				Roll();
-				GD.Print("Roll");
 				@event.Set("handled", true);
 			}
 		}

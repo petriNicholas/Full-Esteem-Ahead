@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1jtu2bikl35h"]
+[gd_scene load_steps=2 format=3 uid="uid://dx37q3qt2mexf"]
 
-[ext_resource type="Script" path="res://src/WsadComponent.cs" id="1_ttnhv"]
+[ext_resource type="Script" path="res://src/InputComponent.cs" id="1_ttnhv"]
 
-[node name="WsadComponent" type="Node"]
+[node name="InputComponent" type="Node2D"]
 script = ExtResource("1_ttnhv")

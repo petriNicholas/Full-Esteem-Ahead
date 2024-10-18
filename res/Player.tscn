@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=5 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://bnhcvln48rmn2" path="res://icon.svg" id="2_0iynb"]
 [ext_resource type="Script" path="res://src/MovementComponent.cs" id="3_dh2ki"]
+[ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="4_l761s"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent")]
 script = ExtResource("1_m3vse")
@@ -13,7 +14,9 @@ position = Vector2(717, 437)
 texture = ExtResource("2_0iynb")
 offset = Vector2(-169, -114)
 
-[node name="MovementComponent" type="Node2D" parent="."]
+[node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("_InputComponent")]
 script = ExtResource("3_dh2ki")
 _speed = 200.476
-_wsadComponent = NodePath("WsadComponent.tscn")
+_InputComponent = NodePath("InputComponent")
+
+[node name="InputComponent" parent="MovementComponent" instance=ExtResource("4_l761s")]
