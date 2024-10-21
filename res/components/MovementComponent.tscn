@@ -1,3 +1,4 @@
+
 [gd_scene load_steps=3 format=3 uid="uid://dnyh7tuyt6hi6"]
 
 [ext_resource type="Script" path="res://src/components/MovementComponent.cs" id="1_x0qf7"]
@@ -9,3 +10,4 @@ _speed = 100.0
 
 [node name="WsadComponent" parent="." instance=ExtResource("2_g5e0j")]
 script = null
+

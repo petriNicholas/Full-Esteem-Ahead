@@ -4,7 +4,6 @@ namespace Game;
 
 public partial class Player : CharacterBody2D
 {
-
 	[Export] private Components.MovementComponent movementComponent;
 	[Export] private Components.HealthComponent healthComponent;
 

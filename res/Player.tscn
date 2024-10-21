@@ -101,3 +101,4 @@ shape = SubResource("RectangleShape2D_3obg4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_bu5c3")
+

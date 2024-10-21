@@ -18,3 +18,4 @@ scale = Vector2(3, 3)
 [node name="Rat" parent="." instance=ExtResource("2_y7ifc")]
 position = Vector2(227, 183)
 scale = Vector2(3, 3)
+
