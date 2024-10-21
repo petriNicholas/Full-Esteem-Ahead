@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dikv1r65q6ddy"
-path="res://.godot/imported/EnemyRat.png-5bb5d78cc458e458a8e42d51d42a0088.ctex"
+uid="uid://b3gkwb57dfvrx"
+path="res://.godot/imported/Walking_disarmed_spritesheet.png-037e25df791f9a071272f80ef9fdcf56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/Enemies/EnemyRat.png"
-dest_files=["res://.godot/imported/EnemyRat.png-5bb5d78cc458e458a8e42d51d42a0088.ctex"]
+source_file="res://res/assets/Walking_disarmed_spritesheet.png"
+dest_files=["res://.godot/imported/Walking_disarmed_spritesheet.png-037e25df791f9a071272f80ef9fdcf56.ctex"]
 
 [params]
 
