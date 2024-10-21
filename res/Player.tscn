@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=18 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/Walking_disarmed_spritesheet.png" id="2_6eyll"]
 [ext_resource type="Script" path="res://src/components/MovementComponent.cs" id="3_dh2ki"]
 [ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
 [ext_resource type="PackedScene" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
+[ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
+[ext_resource type="Script" path="res://src/components/InputComponent.cs" id="6_8gd8l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
@@ -79,11 +81,15 @@ sprite_frames = SubResource("SpriteFrames_dqtdh")
 autoplay = "default"
 frame_progress = 0.851462
 
-[node name="MovementComponent" type="Node2D" parent="."]
+[node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
+
+[node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("_InputComponent")]
 script = ExtResource("3_dh2ki")
 _speed = 200.476
+_InputComponent = NodePath("InputComponent")
 
-[node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
+[node name="InputComponent" parent="MovementComponent" instance=ExtResource("5_xfqqa")]
+script = ExtResource("6_8gd8l")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
 visible = false
