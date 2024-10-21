@@ -1,0 +1,109 @@
+[gd_scene load_steps=16 format=3 uid="uid://ckb4b2cghri65"]
+
+[ext_resource type="Script" path="res://src/EnemyRat.cs" id="1_tn2up"]
+[ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/assets/EnemyRat.png" id="1_vwosk"]
+[ext_resource type="PackedScene" uid="uid://uxa0suevfh8i" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpna6"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwbjc"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wh4x2"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d76fq"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmu0h"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hgvhp"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j07rk"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aoi3"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4v53"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1nahj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpna6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwbjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wh4x2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d76fq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmu0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hgvhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j07rk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0aoi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4v53")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 12.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hooe"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snuck"]
+size = Vector2(16, 8)
+
+[node name="Rat" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_tn2up")
+
+[node name="RatAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1nahj")
+animation = &"Walk"
+frame = 4
+frame_progress = 0.746015
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_xe2bc")]
+DamageAmount = 50
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_6hooe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_snuck")
