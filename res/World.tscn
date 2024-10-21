@@ -1,13 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnahx2i13jc41"]
 
 [ext_resource type="PackedScene" uid="uid://dd6toludvs812" path="res://res/Player.tscn" id="1_3smrk"]
-[ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/Enemies/EnemyRat.tscn" id="2_0qas2"]
+[ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/Enemies/EnemyRat.tscn" id="2_y7ifc"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_3smrk")]
-
-[node name="Rat" parent="." instance=ExtResource("2_0qas2")]
-position = Vector2(153, 216)
+position = Vector2(336, 341)
 scale = Vector2(3, 3)
-motion_mode = 0
+
+[node name="Rat" parent="." instance=ExtResource("2_y7ifc")]
+position = Vector2(227, 183)
+scale = Vector2(3, 3)

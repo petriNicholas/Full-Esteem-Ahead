@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {

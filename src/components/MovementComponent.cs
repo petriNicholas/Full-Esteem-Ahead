@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Game.Components;
+
 public partial class MovementComponent : Node2D
 {
 

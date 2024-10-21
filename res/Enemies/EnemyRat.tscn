@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://res/Enemies/EnemyRat.cs" id="1_tn2up"]
 [ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/Enemies/EnemyRat.png" id="1_vwosk"]
-[ext_resource type="PackedScene" uid="uid://uxa0suevfh8i" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
+[ext_resource type="PackedScene" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpna6"]
 atlas = ExtResource("1_vwosk")
@@ -93,7 +93,8 @@ script = ExtResource("1_tn2up")
 [node name="RatAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1nahj")
 animation = &"Walk"
-frame_progress = 0.1213
+frame = 2
+frame_progress = 0.337964
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_xe2bc")]
 DamageAmount = 50

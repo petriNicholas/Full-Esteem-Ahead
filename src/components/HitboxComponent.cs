@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace Game.Components;
 
 public partial class HitboxComponent : Area2D
 {

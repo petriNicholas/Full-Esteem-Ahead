@@ -1,10 +1,12 @@
 using Godot;
 
+namespace Game.Components;
+
 public partial class HealthComponent : Node
 {
 	private int maxHealth = 100;
 	private int currentHealth;
-	private bool isDead;
+	private bool isDead = false;
 
 	[Signal]
 	public delegate void HealthChangedEventHandler(int health);
@@ -73,7 +75,6 @@ public partial class HealthComponent : Node
 	public override void _Ready()
     {
         CurrentHealth = MaxHealth;
-        isDead = false;
     }
 
 	public void TakeDamage(int damage)
