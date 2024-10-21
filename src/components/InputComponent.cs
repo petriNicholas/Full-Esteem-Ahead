@@ -1,5 +1,7 @@
 using Godot;
 
+namespace Game.Components;
+
 public partial class InputComponent : Node2D
 {
 	public Vector2 UserInputMovement()

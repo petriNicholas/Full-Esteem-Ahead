@@ -1,22 +1,105 @@
-[gd_scene load_steps=5 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=18 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
-[ext_resource type="Texture2D" uid="uid://bnhcvln48rmn2" path="res://icon.svg" id="2_0iynb"]
-[ext_resource type="Script" path="res://src/MovementComponent.cs" id="3_dh2ki"]
-[ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="4_l761s"]
+[ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/Walking_disarmed_spritesheet.png" id="2_6eyll"]
+[ext_resource type="Script" path="res://src/components/MovementComponent.cs" id="3_dh2ki"]
+[ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
+[ext_resource type="PackedScene" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
+[ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
+[ext_resource type="Script" path="res://src/components/InputComponent.cs" id="6_8gd8l"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ux60"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgbx2"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp0n4"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o63xd"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmivr"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dqtdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sngse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ux60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x0s7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgbx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp0n4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o63xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmivr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3obg4"]
+size = Vector2(10, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu5c3"]
+size = Vector2(10, 17)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movementComponent", "healthComponent")]
 script = ExtResource("1_m3vse")
 movementComponent = NodePath("MovementComponent")
+healthComponent = NodePath("HealthComponent")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(717, 437)
-texture = ExtResource("2_0iynb")
-offset = Vector2(-169, -114)
+[node name="WalkAnimation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dqtdh")
+autoplay = "default"
+frame_progress = 0.851462
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
 
 [node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("_InputComponent")]
 script = ExtResource("3_dh2ki")
 _speed = 200.476
 _InputComponent = NodePath("InputComponent")
 
-[node name="InputComponent" parent="MovementComponent" instance=ExtResource("4_l761s")]
+[node name="InputComponent" parent="MovementComponent" instance=ExtResource("5_xfqqa")]
+script = ExtResource("6_8gd8l")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
+visible = false
+HealthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(-8.9407e-08, -1.19209e-07)
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_3obg4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_bu5c3")
