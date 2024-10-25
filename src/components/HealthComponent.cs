@@ -4,9 +4,9 @@ namespace Game.Components;
 
 public partial class HealthComponent : Node
 {
-	private int maxHealth = 100;
-	private int currentHealth;
-	private bool isDead = false;
+	private int _maxHealth = 100;
+	private int _currentHealth;
+	private bool _isDead = false;
 
 	[Signal]
 	public delegate void HealthChangedEventHandler(int health);
@@ -29,48 +29,48 @@ public partial class HealthComponent : Node
 	[Export]
 	public int MaxHealth
 	{
-		get => maxHealth;
+		get => _maxHealth;
 		private set
 		{
-			maxHealth = value;
-			if(CurrentHealth > maxHealth)
+			_maxHealth = value;
+			if(CurrentHealth > _maxHealth)
 			{
-				CurrentHealth = maxHealth;
+				CurrentHealth = _maxHealth;
 			}
 		}
 	}
 
 	public int CurrentHealth
 	{
-		get => currentHealth;
+		get => _currentHealth;
 		private set
 		{
-			int oldHealth = currentHealth;
-			currentHealth = value;
+			int oldHealth = _currentHealth;
+			_currentHealth = value;
 
-			EmitSignal(nameof(HealthChanged), currentHealth);
+			EmitSignal(nameof(HealthChanged), _currentHealth);
 
-			if(currentHealth <= 0 && !isDead)
+			if(_currentHealth <= 0 && !_isDead)
 			{
-				currentHealth = 0;
-				isDead = true;
+				_currentHealth = 0;
+				_isDead = true;
 				EmitSignal(nameof(Died));
 				OnDeath();
 			}
-			else if(currentHealth > maxHealth)
+			else if(_currentHealth > _maxHealth)
 			{
-				currentHealth = maxHealth;
+				_currentHealth = _maxHealth;
 			}
-			else if (isDead && currentHealth > 0)
+			else if (_isDead && _currentHealth > 0)
 			{
-				isDead = false;
+				_isDead = false;
 
 				EmitSignal(nameof(Revived));
 			}
 		}
 	}
 
-	public bool IsDead => isDead;
+	public bool IsDead => _isDead;
 
 	public override void _Ready()
     {
@@ -79,7 +79,7 @@ public partial class HealthComponent : Node
 
 	public void TakeDamage(int damage)
 	{
-		if(isDead) return;
+		if(_isDead) return;
 
 		int oldHealth = CurrentHealth;
 		CurrentHealth -= damage;
@@ -89,7 +89,7 @@ public partial class HealthComponent : Node
 	
 	public void Heal(int amount,  bool canRevive = false)
 	{
-		if ((isDead && !canRevive) || amount < 0) return;
+		if ((_isDead && !canRevive) || amount < 0) return;
 
 		int oldHealth = CurrentHealth;
 		CurrentHealth += amount;

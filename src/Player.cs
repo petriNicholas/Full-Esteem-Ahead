@@ -1,23 +1,36 @@
+using Game.Components;
 using Godot;
 
 namespace Game;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] private Components.MovementComponent movementComponent;
-	[Export] private Components.HealthComponent healthComponent;
 
-	private AnimatedSprite2D animatedSprite;
+	[Export] private InputComponent inputComponent;
+	[Export] private HealthComponent healthComponent;
+
+	private AnimatedSprite2D _animatedSprite;
 
 	public override void _Ready()
 	{
-		animatedSprite = GetNode<AnimatedSprite2D>("WalkAnimation");
+		_animatedSprite = GetNode<AnimatedSprite2D>("WalkAnimation");
 
-		animatedSprite.Play("default");
+		_animatedSprite.Play("default");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		movementComponent.Movement(delta);
+		inputComponent.UserInputMovement();
+		UpdateSpriteDirection();
+	}
+
+	private void UpdateSpriteDirection()
+	{
+		Vector2 direction = inputComponent.GetDirection();
+
+        if (direction.X < 0)
+            _animatedSprite.FlipH = true;
+        else if (direction.X > 0)
+            _animatedSprite.FlipH = false;
 	}
 }
