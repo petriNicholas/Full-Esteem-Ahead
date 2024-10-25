@@ -7,31 +7,80 @@ public partial class InputComponent : Node2D
 
 	[Export] private VelocityComponent velocityComponent;
 
+	private bool _isRolling = false;
+	private float _rollingTimer = 0.05f;
+	private float _rollSpeedMultiplier = 8.0f;
+	private Vector2 _rollVelocity = Vector2.Zero;
+
     public override void _Ready()
     {
         velocityComponent = GetParent<CharacterBody2D>().GetNode<VelocityComponent>("VelocityComponent");
 	}
 
+	public override void _PhysicsProcess(double delta)
+	{
+		if (_isRolling)
+		{
+			HandleRoll(delta);
+		}
+		else
+		{
+			UserInputMovement();
+		}
+	}
+
     public void UserInputMovement()
 	{
+		if(_isRolling) return;
+
 		Vector2 moveVector = new Vector2(Input.GetActionStrength("right") - Input.GetActionStrength("left"),
 										Input.GetActionStrength("down") - Input.GetActionStrength("up"));
 
 		velocityComponent.SetDirection(moveVector);
 	}
-/*
+
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		MovementComponent movementComp = GetParent<MovementComponent>();
-
 		if (@event is InputEventKey eventKey)
 		{
-			if (eventKey.IsActionReleased("roll") && !movementComp.IsRolling())
+			if (eventKey.IsActionReleased("roll") && !IsRolling())
 			{
-				movementComp.Roll();
+				Roll();
 				@event.Set("handled", true);
 			}
 		}
 	}
-*/
+        public void Roll()
+        {
+            Vector2 rollDirection = velocityComponent.Direction;
+
+			if (rollDirection != Vector2.Zero)
+			{
+				_rollVelocity = rollDirection.Normalized() * _rollSpeedMultiplier * velocityComponent.MaxSpeed;
+
+				velocityComponent.SetDirection(Vector2.Zero);
+
+				_isRolling = true;
+				_rollingTimer = 0.05f;
+			}
+        }
+
+        private void HandleRoll(double delta)
+        {
+            CharacterBody2D character = GetParent<CharacterBody2D>();
+			character.Velocity = _rollVelocity;
+			character.MoveAndSlide();
+
+            _rollingTimer -= (float)delta;
+
+            if (_rollingTimer <= 0)
+            {
+                _isRolling = false;
+                _rollingTimer = 0.05f;
+				character.Velocity = Vector2.Zero;
+				UserInputMovement();
+            }
+        }
+
+        private bool IsRolling() => _isRolling;
 }
