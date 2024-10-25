@@ -5,7 +5,7 @@ namespace Game;
 public partial class Player : CharacterBody2D
 {
 
-	[Export] private Components.MovementComponent movementComponent;
+	[Export] private Components.InputComponent inputComponent;
 	[Export] private Components.HealthComponent healthComponent;
 
 	private AnimatedSprite2D animatedSprite;
@@ -19,6 +19,6 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		movementComponent.Movement(delta);
+		inputComponent.UserInputMovement();
 	}
 }
