@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=18 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://blasiyoyxevnd" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
 [ext_resource type="PackedScene" uid="uid://dijji53318r0p" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
 [ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
+[ext_resource type="PackedScene" uid="uid://dflf1ayy5etsd" path="res://res/components/VisualCuesComponent.tscn" id="7_qwi8h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
@@ -81,6 +82,7 @@ autoplay = "default"
 frame_progress = 0.851462
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
+MaxHealth = 1000000000
 
 [node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("_InputComponent")]
 script = ExtResource("3_dh2ki")
@@ -89,9 +91,10 @@ _InputComponent = NodePath("InputComponent")
 
 [node name="InputComponent" parent="MovementComponent" instance=ExtResource("5_xfqqa")]
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent", "visualCuesComponent") instance=ExtResource("5_pi74v")]
 visible = false
 HealthComponent = NodePath("../HealthComponent")
+visualCuesComponent = NodePath("../VisualCuesComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-8.9407e-08, -1.19209e-07)
@@ -102,3 +105,4 @@ shape = SubResource("RectangleShape2D_3obg4")
 visible = false
 shape = SubResource("RectangleShape2D_bu5c3")
 
+[node name="VisualCuesComponent" parent="." instance=ExtResource("7_qwi8h")]
