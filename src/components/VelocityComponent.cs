@@ -52,6 +52,4 @@ public partial class VelocityComponent : Node2D
 	}
 
 	public void SetDirection(Vector2 direction) => Direction = direction;
-
-    public Vector2 GetDirection() => Direction;
 }

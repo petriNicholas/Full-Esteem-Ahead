@@ -10,6 +10,8 @@ public partial class InputComponent : Node2D
 	private bool _isRolling = false;
 	private float _rollingTimer = 0.05f;
 	private float _rollSpeedMultiplier = 8.0f;
+	private float _rollCooldown = 3.0f;
+	private float _rollCooldownTimer = 0.0f;
 	private Vector2 _rollVelocity = Vector2.Zero;
 
     public override void _Ready()
@@ -26,6 +28,7 @@ public partial class InputComponent : Node2D
 		else
 		{
 			UserInputMovement();
+			HandleCooldown(delta);
 		}
 	}
 
@@ -43,7 +46,7 @@ public partial class InputComponent : Node2D
 	{
 		if (@event is InputEventKey eventKey)
 		{
-			if (eventKey.IsActionPressed("roll") && !IsRolling())
+			if (eventKey.IsActionPressed("roll") && !IsRolling() && _rollCooldownTimer <= 0)
 			{
 				Roll();
 				@event.Set("handled", true);
@@ -62,6 +65,7 @@ public partial class InputComponent : Node2D
 
 				_isRolling = true;
 				_rollingTimer = 0.05f;
+				_rollCooldownTimer = _rollCooldown;
 			}
         }
 
@@ -82,7 +86,15 @@ public partial class InputComponent : Node2D
             }
         }
 
+		private void HandleCooldown(double delta)
+    	{
+        	if (_rollCooldownTimer > 0)
+        	{
+           		_rollCooldownTimer -= (float)delta;
+        	}
+    	}
+
         private bool IsRolling() => _isRolling;
 
-		public Vector2 GetDirection() => velocityComponent.GetDirection();
+		public Vector2 GetDirection() => velocityComponent.Direction;
 }
