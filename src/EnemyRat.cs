@@ -4,13 +4,13 @@ namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {
-	private AnimatedSprite2D animatedSprite;
+	private AnimatedSprite2D _animatedSprite;
 
 	public override void _Ready()
 	{
-		animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
+		_animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
 
-		animatedSprite.Play("Walk");
+		_animatedSprite.Play("Walk");
 	}
 
 	public override void _Process(double delta)

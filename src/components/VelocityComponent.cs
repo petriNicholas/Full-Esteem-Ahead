@@ -51,10 +51,7 @@ public partial class VelocityComponent : Node2D
         _characterNode.Velocity = Vector2.Zero * (float)delta;
 	}
 
-	public void SetDirection(Vector2 direction)
-    {
-        Direction = direction;
-    }
+	public void SetDirection(Vector2 direction) => Direction = direction;
 
-
+    public Vector2 GetDirection() => Direction;
 }

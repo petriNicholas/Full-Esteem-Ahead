@@ -8,7 +8,7 @@ public partial class HurtboxComponent : Area2D
 	public delegate void DamageEventHandler(int amount);
 
 	[Export]
-	public HealthComponent HealthComponent {get; set;}
+	public HealthComponent HealthComponent {get; private set;}
 
 	public void ApplyDamage(int amount)
 	{

@@ -43,7 +43,7 @@ public partial class InputComponent : Node2D
 	{
 		if (@event is InputEventKey eventKey)
 		{
-			if (eventKey.IsActionReleased("roll") && !IsRolling())
+			if (eventKey.IsActionPressed("roll") && !IsRolling())
 			{
 				Roll();
 				@event.Set("handled", true);
@@ -83,4 +83,6 @@ public partial class InputComponent : Node2D
         }
 
         private bool IsRolling() => _isRolling;
+
+		public Vector2 GetDirection() => velocityComponent.GetDirection();
 }
