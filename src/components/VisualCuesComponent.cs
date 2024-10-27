@@ -4,7 +4,7 @@ namespace Game.Components;
 
 public partial class VisualCuesComponent : Node2D
 {
-	private Label _label;
+	public Label _label;
 
 	private float _riseSpeed = 50f;
 	private float _fadeSpeed = 1f;
@@ -27,14 +27,13 @@ public partial class VisualCuesComponent : Node2D
 	{
 		if (_label == null || !IsInstanceValid(_label))
 		{
-			GD.PrintErr("Label does not exist");
-			return;
+			_label = new Label();
+			AddChild(_label);
 		}
 
 		_label.Text = damageAmount.ToString();
 
-		position.Y += 16;
-
+		position.Y -= 16;
 		Position = position;
 
 		_color.A = 1;
@@ -53,5 +52,5 @@ public partial class VisualCuesComponent : Node2D
 			GD.PrintErr("queue free");
 			QueueFree();
 		}
-    }
+	}
 }

@@ -8,4 +8,3 @@ script = ExtResource("1_7t8u0")
 [node name="Label" type="Label" parent="."]
 offset_top = -23.0
 offset_right = 59.0
-text = "KURWA"

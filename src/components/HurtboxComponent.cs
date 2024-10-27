@@ -10,7 +10,7 @@ public partial class HurtboxComponent : Area2D
 	[Export]
 	public HealthComponent HealthComponent {get; set;}
 	[Export]
-	public VisualCuesComponent visualCuesComponent {get; set;}
+	public PackedScene visualCuesComponent {get; set;}
 
 	public void ApplyDamage(int amount)
 	{
@@ -18,9 +18,11 @@ public partial class HurtboxComponent : Area2D
 		{
 			HealthComponent.TakeDamage(amount);
 
-			VisualCuesComponent visualCueInstance = new VisualCuesComponent();
-			GetParent().AddChild(visualCueInstance);
+			VisualCuesComponent visualCueInstance = visualCuesComponent.Instantiate<VisualCuesComponent>();
+			// visualCueInstance._label.Text = amount.ToString();
 			visualCueInstance.ShowDamage(amount, Position);
+
+			GetParent().AddChild(visualCueInstance);
 
 			EmitSignal(nameof(Damage), amount);
 		}
