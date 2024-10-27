@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=18 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
 [ext_resource type="Script" path="res://src/components/VelocityComponent.cs" id="3_dh2ki"]
-[ext_resource type="PackedScene" uid="uid://blasiyoyxevnd" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
-[ext_resource type="PackedScene" uid="uid://dijji53318r0p" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
-[ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
+[ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
+[ext_resource type="Script" path="res://src/Camera.cs" id="4_b0opf"]
+[ext_resource type="PackedScene" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
+[ext_resource type="PackedScene" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
@@ -103,3 +104,15 @@ shape = SubResource("RectangleShape2D_3obg4")
 visible = false
 shape = SubResource("RectangleShape2D_bu5c3")
 
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
+editor_draw_drag_margin = true
+script = ExtResource("4_b0opf")
+player = NodePath("..")
