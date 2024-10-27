@@ -21,7 +21,6 @@ public partial class Camera : Camera2D
     {
         base._PhysicsProcess(delta);
 		UpdateCamera((float)delta);
-		GD.Print(GetGlobalMousePosition() - player.Position);
 	}
 
 	private void UpdateCamera(float delta)
