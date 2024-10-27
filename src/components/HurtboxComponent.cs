@@ -19,8 +19,8 @@ public partial class HurtboxComponent : Area2D
 			HealthComponent.TakeDamage(amount);
 
 			VisualCuesComponent visualCueInstance = visualCuesComponent.Instantiate<VisualCuesComponent>();
-			// visualCueInstance._label.Text = amount.ToString();
-			visualCueInstance.ShowDamage(amount, Position);
+			
+			visualCueInstance.ShowDamage(amount, Position.Normalized());
 
 			GetParent().AddChild(visualCueInstance);
 
