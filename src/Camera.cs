@@ -26,18 +26,6 @@ public partial class Camera : Camera2D
 
 	private void UpdateCamera(float delta)
 	{
-		Vector2 mouse = GetGlobalMousePosition();
-		Vector2 playerPos = player.Position;
-
-		if ((mouse - playerPos) < new Vector2(48,48) 
-			&& (mouse - playerPos) > new Vector2(-48,-48))
-		{
-			if (mouse.X < playerPos.X && mouse.Y < playerPos.Y) Offset += new Vector2(-48, -48);
-			else if (mouse.X > playerPos.X && mouse.Y < playerPos.Y) Offset += new Vector2(48, -48);
-			else if (mouse.X > playerPos.X && mouse.Y > playerPos.Y) Offset += new Vector2(48, 48);
-			else if (mouse.X < playerPos.X && mouse.Y > playerPos.Y) Offset += new Vector2(-48, 48);
-		}
-		else Offset = new Vector2(0,0);
 
 	}
 }
