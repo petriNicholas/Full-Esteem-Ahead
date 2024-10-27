@@ -14,12 +14,6 @@ public partial class VisualCuesComponent : Node2D
     {
         _label = GetNode<Label>("Label");
 
-		if (_label == null)
-		{
-			AddChild(_label);
-			GD.PrintErr("Label node could not be found!");
-		}
-
 		_color = _label.Modulate;
     }
 
@@ -42,14 +36,13 @@ public partial class VisualCuesComponent : Node2D
 
     public override void _Process(double delta)
     {
-        Position += new Vector2(0, -_riseSpeed * (float)delta);
+        Position += new Vector2(Position.X, -_riseSpeed * (float)delta);
 
 		_color.A -= _fadeSpeed * (float)delta;
 		_label.Modulate = _color;
 
 		if (_color.A <= 0 && IsInstanceValid(_label))
 		{
-			GD.PrintErr("queue free");
 			QueueFree();
 		}
 	}
