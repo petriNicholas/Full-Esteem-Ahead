@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace Game.Components;
 
@@ -26,7 +27,10 @@ public partial class VisualCuesComponent : Node2D
 		}
 
 		_label.Text = damageAmount.ToString();
+		
+		Random temp = new Random();
 
+		_label.SetPosition(new Vector2(temp.Next(-10, 10), temp.Next(-10, 10)));
 		position.Y -= 16;
 		Position = position;
 
