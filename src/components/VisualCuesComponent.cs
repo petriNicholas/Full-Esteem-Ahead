@@ -34,9 +34,7 @@ public partial class VisualCuesComponent : Node2D
 
 		if (damageAmount < 0) _color.G = 1;
 		else if (damageAmount > 0) _color.R = 1;
-
-		_label.
-
+		_label.LabelSettings.FontSize = 12;
 		position.Y -= 16;
 		Position = position;
 
