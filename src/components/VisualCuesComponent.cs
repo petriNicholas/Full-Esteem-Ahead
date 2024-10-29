@@ -8,7 +8,7 @@ public partial class VisualCuesComponent : Node2D
 	public Label _label;
 
 	private float _riseSpeed = 50f;
-	private float _fadeSpeed = 1f;
+	private float _fadeSpeed = 2f;
 	private Color _color;
 
     public override void _Ready()
@@ -31,6 +31,12 @@ public partial class VisualCuesComponent : Node2D
 		Random temp = new Random();
 
 		_label.SetPosition(new Vector2(temp.Next(-10, 10), temp.Next(-10, 10)));
+
+		if (damageAmount < 0) _color.G = 1;
+		else if (damageAmount > 0) _color.R = 1;
+
+		_label.
+
 		position.Y -= 16;
 		Position = position;
 
