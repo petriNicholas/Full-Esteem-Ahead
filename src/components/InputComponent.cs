@@ -10,7 +10,7 @@ public partial class InputComponent : Node2D
 	private bool _isRolling = false;
 	private float _rollingTimer = 0.05f;
 	private float _rollSpeedMultiplier = 8.0f;
-	private float _rollCooldown = 3.0f;
+	private float _rollCooldown = 0f;
 	private float _rollCooldownTimer = 0.0f;
 	private Vector2 _rollVelocity = Vector2.Zero;
 

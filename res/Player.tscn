@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
 [ext_resource type="Script" path="res://src/components/VelocityComponent.cs" id="3_dh2ki"]
 [ext_resource type="PackedScene" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
-[ext_resource type="Script" path="res://src/Camera.cs" id="4_b0opf"]
 [ext_resource type="PackedScene" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
 [ext_resource type="PackedScene" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
+[ext_resource type="PackedScene" uid="uid://gyi1ujt7e1rv" path="res://res/components/VisualCuesComponent.tscn" id="7_gji2c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
@@ -77,6 +77,7 @@ inputComponent = NodePath("InputComponent")
 healthComponent = NodePath("HealthComponent")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_7g848")]
+MaxHealth = 10000000
 
 [node name="VelocityComponent" type="Node2D" parent="."]
 script = ExtResource("3_dh2ki")
@@ -94,6 +95,7 @@ frame_progress = 0.12824
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
 visible = false
 HealthComponent = NodePath("../HealthComponent")
+visualCuesComponent = ExtResource("7_gji2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(-8.9407e-08, -1.19209e-07)
