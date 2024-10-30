@@ -14,7 +14,6 @@ public partial class VisualCuesComponent : Node2D
     public override void _Ready()
     {
         _label = GetNode<Label>("Label");
-
 		_color = _label.Modulate;
     }
 
@@ -34,7 +33,7 @@ public partial class VisualCuesComponent : Node2D
 
 		if (damageAmount < 0) _color.G = 1;
 		else if (damageAmount > 0) _color.R = 1;
-		_label.LabelSettings.FontSize = 12;
+
 		position.Y -= 16;
 		Position = position;
 
