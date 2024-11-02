@@ -28,9 +28,9 @@ public partial class Player : CharacterBody2D
 	{
 		Vector2 direction = inputComponent.GetDirection();
 
-        if (direction.X < 0)
-            _animatedSprite.FlipH = true;
-        else if (direction.X > 0)
-            _animatedSprite.FlipH = false;
+		if (direction.X < 0)
+			_animatedSprite.FlipH = true;
+		else if (direction.X > 0)
+			_animatedSprite.FlipH = false;
 	}
 }
