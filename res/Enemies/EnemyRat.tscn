@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/assets/EnemyRat.png" id="1_vwosk"]
 [ext_resource type="Script" path="res://src/components/VelocityComponent.cs" id="2_trbl0"]
 [ext_resource type="PackedScene" uid="uid://wknolwuu6ceo" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
-[ext_resource type="PackedScene" uid="uid://c2gpss0a263hb" path="res://res/components/PathfindingComponent.tscn" id="3_yufat"]
+[ext_resource type="PackedScene" path="res://res/components/PathfindingComponent.tscn" id="3_yufat"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpna6"]
 atlas = ExtResource("1_vwosk")
@@ -95,7 +95,6 @@ pathfindingComponent = NodePath("PathfindingComponent")
 
 [node name="VelocityComponent" type="Node2D" parent="."]
 script = ExtResource("2_trbl0")
-MaxSpeed = 300.0
 
 [node name="PathfindingComponent" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("3_yufat")]
 velocityComponent = NodePath("../VelocityComponent")
