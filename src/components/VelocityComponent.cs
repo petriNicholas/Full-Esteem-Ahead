@@ -12,14 +12,14 @@ public partial class VelocityComponent : Node2D
 	
 	private CharacterBody2D _characterNode;
 
-    public override void _Ready()
-    {
-        _characterNode = GetParent<CharacterBody2D>();
-    }
+	public override void _Ready()
+	{
+		_characterNode = GetParent<CharacterBody2D>();
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if(Direction != Vector2.Zero)
+	public override void _PhysicsProcess(double delta)
+	{
+		if(Direction != Vector2.Zero)
 		{
 			Accelerate(delta);
 		}
@@ -29,9 +29,9 @@ public partial class VelocityComponent : Node2D
 		}
 
 		_characterNode.MoveAndSlide();
-    }
+	}
 
-    public void Accelerate(double delta)
+	public void Accelerate(double delta)
 	{
 		//float accelerationRate = MaxSpeed * AccelerationCoefficient * (float)delta;
 
@@ -39,7 +39,7 @@ public partial class VelocityComponent : Node2D
 
 		//_characterNode.Velocity = _characterNode.Velocity.MoveToward(targetSpeed, accelerationRate);
 
-        _characterNode.Velocity = targetSpeed;
+		_characterNode.Velocity = targetSpeed;
 	}
 	
 	public void Decelerate(double delta)
@@ -48,7 +48,7 @@ public partial class VelocityComponent : Node2D
 
 		//_characterNode.Velocity = _characterNode.Velocity.MoveToward(Vector2.Zero, decelerationRate);
 
-        _characterNode.Velocity = Vector2.Zero * (float)delta;
+		_characterNode.Velocity = Vector2.Zero * (float)delta;
 	}
 
 	public void SetDirection(Vector2 direction) => Direction = direction;
