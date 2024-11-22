@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/EnemyRat.cs" id="1_tn2up"]
 [ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/assets/EnemyRat.png" id="1_vwosk"]
 [ext_resource type="Script" path="res://src/components/VelocityComponent.cs" id="2_trbl0"]
-[ext_resource type="PackedScene" uid="uid://uxa0suevfh8i" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
+[ext_resource type="PackedScene" uid="uid://wknolwuu6ceo" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
 [ext_resource type="PackedScene" uid="uid://c2gpss0a263hb" path="res://res/components/PathfindingComponent.tscn" id="3_yufat"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpna6"]
@@ -83,10 +83,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hooe"]
-size = Vector2(16, 8)
+size = Vector2(16, 6)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_snuck"]
-size = Vector2(16, 8)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwkot"]
+radius = 2.0
 
 [node name="Rat" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent")]
 motion_mode = 1
@@ -105,15 +105,18 @@ sprite_frames = SubResource("SpriteFrames_1nahj")
 animation = &"Walk"
 frame = 4
 frame_progress = 0.746015
+centered = false
+offset = Vector2(-8, -13)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_xe2bc")]
 DamageAmount = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 visible = false
-scale = Vector2(1.2, 1.2)
+position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6hooe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource("RectangleShape2D_snuck")
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_jwkot")
