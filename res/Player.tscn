@@ -67,10 +67,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3obg4"]
-size = Vector2(10, 18)
+size = Vector2(9.875, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu5c3"]
-size = Vector2(10, 17)
+[sub_resource type="CircleShape2D" id="CircleShape2D_mj51x"]
+radius = 4.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("inputComponent", "healthComponent")]
 script = ExtResource("1_m3vse")
@@ -94,18 +94,16 @@ frame = 2
 frame_progress = 0.12824
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
-visible = false
 HealthComponent = NodePath("../HealthComponent")
 visualCuesComponent = ExtResource("7_gji2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-8.9407e-08, -1.19209e-07)
-scale = Vector2(1.2, 1.2)
+visible = false
 shape = SubResource("RectangleShape2D_3obg4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource("RectangleShape2D_bu5c3")
+shape = SubResource("CircleShape2D_mj51x")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
