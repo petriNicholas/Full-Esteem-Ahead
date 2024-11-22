@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb1hgtfenu5ku"]
+
+[ext_resource type="Script" path="res://src/components/BbSimpleStateMachine.cs" id="1_xfiqo"]
+
+[node name="BBSimpleStateMachine" type="Node"]
+script = ExtResource("1_xfiqo")

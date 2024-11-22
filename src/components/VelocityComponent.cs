@@ -39,7 +39,7 @@ public partial class VelocityComponent : Node2D
 
 		//_characterNode.Velocity = _characterNode.Velocity.MoveToward(targetSpeed, accelerationRate);
 
-		_characterNode.Velocity = targetSpeed;
+		_characterNode.Velocity = targetSpeed * (float)delta;
 	}
 	
 	public void Decelerate(double delta)
