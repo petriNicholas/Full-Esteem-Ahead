@@ -15,7 +15,7 @@ public partial class EnemyRat : CharacterBody2D
 		_animatedSprite.Play("Walk");
 
 		Node2D player = GetNode<Node2D>("../Player");
-        pathfindingComponent.SetTarget(player);
+        	pathfindingComponent.SetTarget(player);
 	}
 
 	public override void _Process(double delta)
