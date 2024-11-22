@@ -20,14 +20,14 @@ public partial class PathfindingComponent : NavigationAgent2D
 		}
 
 		if (!IsNavigationFinished())
-        {
+        	{
 			Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
-            Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
-            velocityComponent.SetDirection(direction);
-        }
-        else
-        {
-            velocityComponent.SetDirection(Vector2.Zero);
-        }
+            		Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
+            		velocityComponent.SetDirection(direction);
+        	}
+        	else
+        	{
+            		velocityComponent.SetDirection(Vector2.Zero);
+        	}
 	}
 }
