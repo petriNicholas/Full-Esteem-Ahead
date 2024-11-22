@@ -21,6 +21,7 @@ public partial class BbSimpleStateMachine : Node
 
     public void TransitionTo(string newState)
     {
+		 GD.Print($"Transitioning from state: {_state} to state: {newState}");
         if (newState == _state) return;
         if (!string.IsNullOrEmpty(_state)) ExitState();
         _state = newState;
@@ -29,25 +30,33 @@ public partial class BbSimpleStateMachine : Node
 
     private void EnterState()
     {
+		 GD.Print($"Entering state: {_state}");
         CallDelegateFor("_enter");
         EmitSignal(nameof(StateEntered), _state);
     }
 
     private void ExitState()
     {
+		 GD.Print($"Exiting state: {_state}");
         CallDelegateFor("_exit");
         EmitSignal(nameof(StateExited), _state);
     }
 
+    public override void _Process(double delta) => CallDelegateFor("_process", (float)delta);
+	public override void _PhysicsProcess(double delta) => CallDelegateFor("_physics_process", (float)delta);
     public override void _Input(InputEvent @event) => CallDelegateFor("_input", @event);
     public override void _UnhandledInput(InputEvent @event) => CallDelegateFor("_unhandled_input", @event);
     public override void _UnhandledKeyInput(InputEvent @event) => CallDelegateFor("_unhandled_key_input", @event);
 
-    private Variant? CallDelegateFor(string builtin, Variant? data = null)
+    public Variant? CallDelegateFor(string builtin, Variant? data = null)
 	{
-    	var method = $"{MethodPrefix}{_state}{builtin}";
+    	string method = $"{MethodPrefix}{_state}{builtin}";
+		GD.Print($"Attempting to call method: {method}");
+
     	if (HasMethod(method))
         	return data.HasValue ? Call(method, data.Value) : Call(method);
+			
+		GD.PrintErr($"Method not found: {method}");
     	return null;
 	}
 }

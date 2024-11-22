@@ -89,10 +89,11 @@ size = Vector2(16, 6)
 [sub_resource type="CircleShape2D" id="CircleShape2D_jwkot"]
 radius = 2.0
 
-[node name="Rat" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent")]
+[node name="Rat" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent", "bbSimpleStateMachine")]
 motion_mode = 1
 script = ExtResource("1_tn2up")
 pathfindingComponent = NodePath("PathfindingComponent")
+bbSimpleStateMachine = NodePath("BBSimpleStateMachine")
 
 [node name="VelocityComponent" type="Node2D" parent="."]
 script = ExtResource("2_trbl0")
