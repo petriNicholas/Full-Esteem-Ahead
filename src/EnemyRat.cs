@@ -5,7 +5,7 @@ namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {
-	[Export] public float AttackRange = 100f;
+	[Export] public float AttackRange = 20f;
 	[Export] private PathfindingComponent pathfindingComponent;
 	[Export] private BbSimpleStateMachine bbSimpleStateMachine;
 	private Node2D _player;
@@ -27,10 +27,9 @@ public partial class EnemyRat : CharacterBody2D
 	{
 		GD.Print("Entering Walk state.");
 		pathfindingComponent.velocityComponent.SetMaxSpeed(100);
-		pathfindingComponent.SetTarget(_player);
 	}
 
-	public void Walk_physics_process(float delta)
+	public void Walk_process(float delta)
 	{
 		GD.Print("Walking");
 		if (_player != null && Position.DistanceTo(_player.Position) >= 400)
@@ -53,10 +52,10 @@ public partial class EnemyRat : CharacterBody2D
 	public void Attack_enter()
 	{
 		GD.Print("Entering Attack state.");
-		pathfindingComponent.SetTarget(null);
+		pathfindingComponent.velocityComponent.SetMaxSpeed(0);
 	}
 
-	public void Attack_physics_process(float delta)
+	public void Attack_process(float delta)
 	{
 		GD.Print("attacking");
 		if (Position.DistanceTo(_player.Position) > AttackRange)
@@ -78,7 +77,7 @@ public partial class EnemyRat : CharacterBody2D
 		pathfindingComponent.velocityComponent.SetMaxSpeed(300);
 	}
 
-	public void Sprint_physics_process(float delta)
+	public void Sprint_process(float delta)
 	{
 		GD.Print("Sprinting");
 		if (_player != null && Position.DistanceTo(_player.Position) < 400)

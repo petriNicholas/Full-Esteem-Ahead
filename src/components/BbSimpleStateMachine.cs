@@ -44,8 +44,8 @@ public partial class BbSimpleStateMachine : Node
 
     // Funkcje te są zakomentowane, gdyż się ciągle wywoływały i śmieciły console log, trzeba zobaczyć czy należy usunąć czy zostawić
 
-    //public override void _Process(double delta) => CallDelegateFor("_process", (float)delta);
-    public override void _PhysicsProcess(double delta) => CallDelegateFor("_physics_process", (float)delta);
+    public override void _Process(double delta) => CallDelegateFor("_process", (float)delta);
+    //public override void _PhysicsProcess(double delta) => CallDelegateFor("_physics_process", (float)delta);
     //public override void _Input(InputEvent @event) => CallDelegateFor("_input", @event);
     //public override void _UnhandledInput(InputEvent @event) => CallDelegateFor("_unhandled_input", @event);
     //public override void _UnhandledKeyInput(InputEvent @event) => CallDelegateFor("_unhandled_key_input", @event);
