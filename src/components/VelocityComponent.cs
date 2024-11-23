@@ -52,4 +52,5 @@ public partial class VelocityComponent : Node2D
 	}
 
 	public void SetDirection(Vector2 direction) => Direction = direction;
+	public void SetMaxSpeed(float speed) => MaxSpeed = speed;
 }

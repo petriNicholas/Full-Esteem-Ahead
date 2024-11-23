@@ -123,4 +123,5 @@ visible = false
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_jwkot")
 
-[node name="BBSimpleStateMachine" parent="." instance=ExtResource("6_g10qr")]
+[node name="BBSimpleStateMachine" parent="." node_paths=PackedStringArray("StateOwner") instance=ExtResource("6_g10qr")]
+StateOwner = NodePath("..")

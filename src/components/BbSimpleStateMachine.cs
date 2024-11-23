@@ -7,8 +7,8 @@ public partial class BbSimpleStateMachine : Node
     [Signal] public delegate void StateEnteredEventHandler(string state);
     [Signal] public delegate void StateExitedEventHandler(string state);
     public string InitialState { get; set; } = "";
-    private string MethodPrefix = "";
-    [Export] public Node StateOwner { get; set; }
+    public string MethodPrefix { get; private set; } = "";
+    [Export] public Node StateOwner { get; private set; }
 
     private string _state = "";
 

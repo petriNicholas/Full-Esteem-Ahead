@@ -13,25 +13,31 @@ public partial class EnemyRat : CharacterBody2D
 
 	public override void _Ready()
 	{
-		bbSimpleStateMachine.StateOwner = this; // Ustaw EnemyRat jako właściciela
-
 		_animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
 		_animatedSprite.Play("Walk");
 
 		_player = GetNode<Node2D>("../Player");
+		pathfindingComponent.SetTarget(_player);
 
-		bbSimpleStateMachine.InitialState = "Walk";
+		bbSimpleStateMachine.TransitionTo("Walk"); // to fix: zmiana tego na InitialState powoduje błędy
 	}
 
 	// ====== Stan "Walk" ======
 	public void Walk_enter()
 	{
 		GD.Print("Entering Walk state.");
+		pathfindingComponent.velocityComponent.SetMaxSpeed(100);
 		pathfindingComponent.SetTarget(_player);
 	}
+
 	public void Walk_physics_process(float delta)
 	{
 		GD.Print("Walking");
+		if (_player != null && Position.DistanceTo(_player.Position) >= 400)
+		{
+			bbSimpleStateMachine.TransitionTo("Sprint");
+			return;
+		}
 		if (_player != null && Position.DistanceTo(_player.Position) <= AttackRange)
 		{
 			bbSimpleStateMachine.TransitionTo("Attack");
@@ -42,7 +48,6 @@ public partial class EnemyRat : CharacterBody2D
 	{
 		GD.Print("Exiting Walk state.");
 	}
-	// ===========================
 
 	// ====== Stan "Attack" ======
 	public void Attack_enter()
@@ -65,5 +70,26 @@ public partial class EnemyRat : CharacterBody2D
 	{
 		GD.Print("Exiting Attack state.");
 	}
-	// ==========================
+
+	// ====== Stan "Sprint" ======
+	public void Sprint_enter()
+	{
+		GD.Print("Entering Sprint state.");
+		pathfindingComponent.velocityComponent.SetMaxSpeed(300);
+	}
+
+	public void Sprint_physics_process(float delta)
+	{
+		GD.Print("Sprinting");
+		if (_player != null && Position.DistanceTo(_player.Position) < 400)
+		{
+			bbSimpleStateMachine.TransitionTo("Walk");
+			return;
+		}
+	}
+
+	public void Sprint_exit()
+	{
+		GD.Print("Exiting Sprint state.");
+	}
 }
