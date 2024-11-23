@@ -8,7 +8,8 @@ public partial class BbSimpleStateMachine : Node
     [Signal] public delegate void StateEnteredEventHandler(string state);
     [Signal] public delegate void StateExitedEventHandler(string state);
     [Export] public string InitialState { get; set; } = "";
-    [Export] public string MethodPrefix { get; set; } = "";
+    public string MethodPrefix { get; set; } = "";
+    [Export] public Node StateOwner { get; set; }
 
     private string _state = NO_STATE;
 
@@ -28,33 +29,33 @@ public partial class BbSimpleStateMachine : Node
         EnterState();
     }
 
-    private void EnterState()
+    public void EnterState()
     {
 		 GD.Print($"Entering state: {_state}");
         CallDelegateFor("_enter");
         EmitSignal(nameof(StateEntered), _state);
     }
 
-    private void ExitState()
+    public void ExitState()
     {
 		 GD.Print($"Exiting state: {_state}");
         CallDelegateFor("_exit");
         EmitSignal(nameof(StateExited), _state);
     }
 
-    public override void _Process(double delta) => CallDelegateFor("_process", (float)delta);
+    //public override void _Process(double delta) => CallDelegateFor("_process", (float)delta);
 	public override void _PhysicsProcess(double delta) => CallDelegateFor("_physics_process", (float)delta);
-    public override void _Input(InputEvent @event) => CallDelegateFor("_input", @event);
-    public override void _UnhandledInput(InputEvent @event) => CallDelegateFor("_unhandled_input", @event);
-    public override void _UnhandledKeyInput(InputEvent @event) => CallDelegateFor("_unhandled_key_input", @event);
+    //public override void _Input(InputEvent @event) => CallDelegateFor("_input", @event);
+    //public override void _UnhandledInput(InputEvent @event) => CallDelegateFor("_unhandled_input", @event);
+    //public override void _UnhandledKeyInput(InputEvent @event) => CallDelegateFor("_unhandled_key_input", @event);
 
     public Variant? CallDelegateFor(string builtin, Variant? data = null)
 	{
     	string method = $"{MethodPrefix}{_state}{builtin}";
 		GD.Print($"Attempting to call method: {method}");
 
-    	if (HasMethod(method))
-        	return data.HasValue ? Call(method, data.Value) : Call(method);
+    	if (StateOwner != null && StateOwner.HasMethod(method))
+        	return data.HasValue ? StateOwner.Call(method, data.Value) : StateOwner.Call(method);
 			
 		GD.PrintErr($"Method not found: {method}");
     	return null;

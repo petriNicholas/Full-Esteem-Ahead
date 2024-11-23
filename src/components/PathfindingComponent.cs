@@ -17,14 +17,14 @@ public partial class PathfindingComponent : NavigationAgent2D
         if (_target == null)
             return Vector2.Zero;
 
-        TargetPosition = _target.GlobalPosition;  // Ustawiamy pozycję docelową (gracza)
+        TargetPosition = _target.GlobalPosition;
 
         if (!IsNavigationFinished())
         {
             Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
-            return (GetNextPathPosition() - agentPosition).Normalized();  // Obliczamy normalizowany kierunek
+            return (GetNextPathPosition() - agentPosition).Normalized();
         }
-        return Vector2.Zero;  // Zwracamy Zero, jeśli już nie ma drogi do przebycia
+        return Vector2.Zero;
     }
 
 	public override void _Process(double delta)

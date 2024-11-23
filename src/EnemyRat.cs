@@ -13,6 +13,9 @@ public partial class EnemyRat : CharacterBody2D
 
 	public override void _Ready()
 	{
+	bbSimpleStateMachine.StateOwner = this; // Ustaw EnemyRat jako właściciela
+    bbSimpleStateMachine.MethodPrefix = "";
+
 		_animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
 		_animatedSprite.Play("Walk");
 
@@ -33,19 +36,16 @@ public partial class EnemyRat : CharacterBody2D
 	public void Walk_enter()
 {
     GD.Print("Entering Walk state.");
+	pathfindingComponent.SetTarget(_player);
 }
 	public void Walk_physics_process(float delta)
     {
-		// niech przeciwnik otrzyma velocity, żeby mógł iśc w stronę gracza
-
+		GD.Print("Walking");
 		if (_player != null && Position.DistanceTo(_player.Position) <= AttackRange)
         {
-            bbSimpleStateMachine.TransitionTo("Attack"); // Przejście do stanu ataku
+            bbSimpleStateMachine.TransitionTo("Attack");
 			return;
         }
-
-		Vector2 direction = pathfindingComponent.GetDirection();
-        pathfindingComponent.velocityComponent.SetDirection(direction);
 	}
 	public void Walk_exit()
 {
@@ -56,6 +56,7 @@ public partial class EnemyRat : CharacterBody2D
 	public void Attack_enter()
 {
     GD.Print("Entering Attack state.");
+	pathfindingComponent.SetTarget(null);
 }
 	public void Attack_physics_process(float delta)
     {
