@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2g6dabftbuvp"]
+
+[ext_resource type="PackedScene" uid="uid://bjl6sea27nvlx" path="res://res/ArenaGround.tscn" id="1_4n44k"]
+[ext_resource type="PackedScene" uid="uid://dd6toludvs812" path="res://res/Player.tscn" id="2_oast3"]
+[ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/Enemies/EnemyRat.tscn" id="3_uw7ac"]
+
+[node name="DemoLevel" type="Node2D"]
+
+[node name="TileMapLayer" parent="." instance=ExtResource("1_4n44k")]
+
+[node name="Player" parent="." instance=ExtResource("2_oast3")]
+
+[node name="Rat" parent="." instance=ExtResource("3_uw7ac")]
+position = Vector2(110, 9)
+scale = Vector2(3, 3)
