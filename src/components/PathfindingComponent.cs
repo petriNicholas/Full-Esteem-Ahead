@@ -5,13 +5,14 @@ namespace Game.Components;
 public partial class PathfindingComponent : NavigationAgent2D
 {
 	[Export] public VelocityComponent velocityComponent;
+
 	private Node2D _target;
 	
 	public void SetTarget(Node2D target)
 	{
 		_target = target;
 	}
-	
+
 	public Vector2 GetDirection()
     {
         if (_target == null)

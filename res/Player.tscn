@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://342h6qes3epi" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
 [ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
 [ext_resource type="PackedScene" uid="uid://gyi1ujt7e1rv" path="res://res/components/VisualCuesComponent.tscn" id="7_gji2c"]
+
 [ext_resource type="Script" path="res://src/Camera.cs" id="8_fmvjq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
