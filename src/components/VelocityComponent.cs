@@ -7,6 +7,7 @@ public partial class VelocityComponent : Node2D
 	[Export(PropertyHint.Range, "0, 300, or_greater, hide_slider")] public float MaxSpeed {get; private set;} = 100.0f;
 	[Export(PropertyHint.Range, "0, 1")] public float AccelerationCoefficient {get; private set;} = 1.0f;
 	[Export(PropertyHint.Range, "0, 1")] public float DecelerationCoefficient {get; private set;} = 1.0f;
+	public float SpeedModifier {get; private set;} = 1.0f;
 
 	public Vector2 Direction {get; private set;} = Vector2.Zero;
 	
@@ -35,7 +36,7 @@ public partial class VelocityComponent : Node2D
 	{
 		//float accelerationRate = MaxSpeed * AccelerationCoefficient * (float)delta;
 
-		Vector2 targetSpeed = Direction.Normalized() * MaxSpeed;
+		Vector2 targetSpeed = Direction.Normalized() * MaxSpeed * SpeedModifier;
 
 		//_characterNode.Velocity = _characterNode.Velocity.MoveToward(targetSpeed, accelerationRate);
 
@@ -52,4 +53,5 @@ public partial class VelocityComponent : Node2D
 	}
 
 	public void SetDirection(Vector2 direction) => Direction = direction;
+	public void SetSpeedModifier(float speed) => SpeedModifier = speed;
 }
