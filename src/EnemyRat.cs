@@ -25,16 +25,11 @@ public partial class EnemyRat : CharacterBody2D
 	// ====== Stan "Walk" ======
 	public void Walk_enter()
 	{
-		pathfindingComponent.velocityComponent.SetMaxSpeed(300);
+		pathfindingComponent.velocityComponent.SetSpeedModifier(1.0f);
 	}
 
-	public void Walk_process(float delta)
+	public void Walk_physics_process(float delta)
 	{
-		if (_player != null && Position.DistanceTo(_player.Position) >= 400)
-		{
-			bbSimpleStateMachine.TransitionTo("Sprint");
-			return;
-		}
 		if (_player != null && Position.DistanceTo(_player.Position) <= AttackRange)
 		{
 			bbSimpleStateMachine.TransitionTo("Attack");
@@ -45,10 +40,10 @@ public partial class EnemyRat : CharacterBody2D
 	// ====== Stan "Attack" ======
 	public void Attack_enter()
 	{
-		pathfindingComponent.velocityComponent.SetMaxSpeed(0);
+		pathfindingComponent.velocityComponent.SetSpeedModifier(0f);
 	}
 
-	public void Attack_process(float delta)
+	public void Attack_physics_process(float delta)
 	{
 		if (Position.DistanceTo(_player.Position) > AttackRange)
 		{
