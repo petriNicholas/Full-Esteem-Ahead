@@ -5,7 +5,7 @@ namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {
-	[Export] public float AttackRange = 20f;
+	[Export] public float AttackRange = 100f;
 	[Export] private PathfindingComponent pathfindingComponent;
 	[Export] private BbSimpleStateMachine bbSimpleStateMachine;
 	private Node2D _player;
@@ -19,19 +19,17 @@ public partial class EnemyRat : CharacterBody2D
 		_player = GetNode<Node2D>("../Player");
 		pathfindingComponent.SetTarget(_player);
 
-		bbSimpleStateMachine.TransitionTo("Walk"); // to fix: zmiana tego na InitialState powoduje błędy
+		bbSimpleStateMachine.TransitionTo("Walk");
 	}
 
 	// ====== Stan "Walk" ======
 	public void Walk_enter()
 	{
-		GD.Print("Entering Walk state.");
-		pathfindingComponent.velocityComponent.SetMaxSpeed(100);
+		pathfindingComponent.velocityComponent.SetMaxSpeed(300);
 	}
 
 	public void Walk_process(float delta)
 	{
-		GD.Print("Walking");
 		if (_player != null && Position.DistanceTo(_player.Position) >= 400)
 		{
 			bbSimpleStateMachine.TransitionTo("Sprint");
@@ -43,52 +41,18 @@ public partial class EnemyRat : CharacterBody2D
 			return;
 		}
 	}
-	public void Walk_exit()
-	{
-		GD.Print("Exiting Walk state.");
-	}
 
 	// ====== Stan "Attack" ======
 	public void Attack_enter()
 	{
-		GD.Print("Entering Attack state.");
 		pathfindingComponent.velocityComponent.SetMaxSpeed(0);
 	}
 
 	public void Attack_process(float delta)
 	{
-		GD.Print("attacking");
 		if (Position.DistanceTo(_player.Position) > AttackRange)
 		{
-			GD.Print("Player is out of range. Returning to Walk.");
 			bbSimpleStateMachine.TransitionTo("Walk");
 		}
-	}
-
-	public void Attack_exit()
-	{
-		GD.Print("Exiting Attack state.");
-	}
-
-	// ====== Stan "Sprint" ======
-	public void Sprint_enter()
-	{
-		GD.Print("Entering Sprint state.");
-		pathfindingComponent.velocityComponent.SetMaxSpeed(300);
-	}
-
-	public void Sprint_process(float delta)
-	{
-		GD.Print("Sprinting");
-		if (_player != null && Position.DistanceTo(_player.Position) < 400)
-		{
-			bbSimpleStateMachine.TransitionTo("Walk");
-			return;
-		}
-	}
-
-	public void Sprint_exit()
-	{
-		GD.Print("Exiting Sprint state.");
 	}
 }
