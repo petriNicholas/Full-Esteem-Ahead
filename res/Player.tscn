@@ -74,6 +74,7 @@ size = Vector2(9.875, 16)
 radius = 4.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("inputComponent", "healthComponent")]
+scale = Vector2(3, 3)
 script = ExtResource("1_m3vse")
 inputComponent = NodePath("InputComponent")
 healthComponent = NodePath("HealthComponent")
