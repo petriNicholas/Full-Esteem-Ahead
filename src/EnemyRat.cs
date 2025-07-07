@@ -17,6 +17,7 @@ public partial class EnemyRat : CharacterBody2D
 		_animatedSprite.Play("Walk");
 
 		_player = GetNode<Node2D>("../Player");
+		
 		pathfindingComponent.SetTarget(_player);
 
 		bbSimpleStateMachine.TransitionTo("Walk");
