@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://gwqbs71kvpwf"]
+
+[ext_resource type="Script" uid="uid://bjlrr0qc6phuf" path="res://src/Bullet.cs" id="1_7tpkg"]
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_7tpkg")
+Speed = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
