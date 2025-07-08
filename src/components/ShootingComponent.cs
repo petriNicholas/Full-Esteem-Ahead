@@ -5,98 +5,98 @@ namespace Game.Components;
 
 public partial class ShootingComponent : Node2D
 {
-	[Export] public float StartingSpeed { get; set; }
-	[Export] public Vector2 Direction { get; set; } = new Vector2(0, 1);
-	[Export] public float Radius { get; set; } = 9.0f;
+    [Export] public float StartingSpeed { get; set; }
+    [Export] public Vector2 Direction { get; set; } = new Vector2(0, 1);
+    [Export] public float Radius { get; set; } = 9.0f;
 
-	private float _initColRadius;
-	private float _acceleration = 0.0f;
-	private float _speed;
-	private float _maxSpeed;
-	private float _lifetime;
-	private float _checkBoundaryTime;
-	private float _spentTime;
+    private float _initColRadius;
+    private float _acceleration = 0.0f;
+    private float _speed;
+    private float _maxSpeed;
+    private float _lifetime;
+    private float _checkBoundaryTime;
+    private float _spentTime;
 
-	private float _targetScale = 1.0f;
-	private bool _grazed = false;
-	private bool _died = false;
+    private float _targetScale = 1.0f;
+    private bool _grazed = false;
+    private bool _died = false;
 
-	private float _angularSpeed = 0.0f;
-	private float _angularStray = 0.0f;
-	private float _maxAngularStray = 0.0f;
+    private float _angularSpeed = 0.0f;
+    private float _angularStray = 0.0f;
+    private float _maxAngularStray = 0.0f;
 
-	public void Setup()
-	{
-		Bullet bulletType = new Bullet();
-		
-		if (StartingSpeed == 0)
-			StartingSpeed = bulletType.Speed;
-		_speed = StartingSpeed;
-		_maxSpeed = bulletType.MaxSpeed;
-		_angularSpeed = Mathf.DegToRad(bulletType.AngularSpeed);
-		_maxAngularStray = Mathf.DegToRad(bulletType.MaxAngularStray);
-		_acceleration = bulletType.Acceleration;
-		_lifetime = bulletType.Lifetime;
+    public void Setup()
+    {
+        Bullet bulletType = new Bullet();
 
-		Direction = (GetGlobalMousePosition() - Position).Normalized();
+        if (StartingSpeed == 0)
+            StartingSpeed = bulletType.Speed;
+        _speed = StartingSpeed;
+        _maxSpeed = bulletType.MaxSpeed;
+        _angularSpeed = Mathf.DegToRad(bulletType.AngularSpeed);
+        _maxAngularStray = Mathf.DegToRad(bulletType.MaxAngularStray);
+        _acceleration = bulletType.Acceleration;
+        _lifetime = bulletType.Lifetime;
 
-		this.AddChild(bulletType);
-	}
+        Direction = (GetGlobalMousePosition() - Position).Normalized();
 
-	public override void _Ready()
-	{
-		_spentTime = 0.0f;
-		Direction = Direction.Normalized();
-	}
+        this.AddChild(bulletType);
+    }
 
-	public void _PhysicsProcess(float delta)
-	{
-		MoveBullet(delta);
-		CheckCollisions();
-	}
+    public override void _Ready()
+    {
+        _spentTime = 0.0f;
+        Direction = Direction.Normalized();
+    }
 
-	private void MoveBullet(float delta)
-	{
-		_angularStray += _angularSpeed * delta;
-		if (_maxAngularStray == 0 || Mathf.Abs(_angularStray) < Mathf.Abs(_maxAngularStray))
-		{
-			Direction = Direction.Rotated(_angularSpeed * delta);
-		}
+    public void _PhysicsProcess(float delta)
+    {
+        MoveBullet(delta);
+        CheckCollisions();
+    }
 
-		Rotation = -Direction.AngleTo(Vector2.Up);
+    private void MoveBullet(float delta)
+    {
+        _angularStray += _angularSpeed * delta;
+        if (_maxAngularStray == 0 || Mathf.Abs(_angularStray) < Mathf.Abs(_maxAngularStray))
+        {
+            Direction = Direction.Rotated(_angularSpeed * delta);
+        }
 
-		Position += Direction * _speed * delta;
-		if (_maxSpeed == 0 || Mathf.Abs(_speed) < Mathf.Abs(_maxSpeed))
-		{
-			_speed += _acceleration * delta;
-		}
+        Rotation = -Direction.AngleTo(Vector2.Up);
 
-		_spentTime += delta;
-	}
+        Position += Direction * _speed * delta;
+        if (_maxSpeed == 0 || Mathf.Abs(_speed) < Mathf.Abs(_maxSpeed))
+        {
+            _speed += _acceleration * delta;
+        }
 
-	private void CheckCollisions()
-	{
-		float distSquaredToPlayer = GetGlobalMousePosition().DistanceSquaredTo(GlobalPosition);
+        _spentTime += delta;
+    }
 
-		if (_spentTime > _lifetime)
-		{
-			Die();
-		}
-	}
+    private void CheckCollisions()
+    {
+        float distSquaredToPlayer = GetGlobalMousePosition().DistanceSquaredTo(GlobalPosition);
 
-	private void Die()
-	{
-		if (_died) return;
-		_died = true;
-		GetParent().RemoveChild(this);
-		QueueFree();
-	}
+        if (_spentTime > _lifetime)
+        {
+            Die();
+        }
+    }
 
-	private void OnCollision(Area2D area)
-	{
-		if (area is HurtboxComponent hurtbox)
-		{
-			hurtbox.ApplyDamage(10);
-		}
-	}
+    private void Die()
+    {
+        if (_died) return;
+        _died = true;
+        GetParent().RemoveChild(this);
+        QueueFree();
+    }
+
+    private void OnCollision(Area2D area)
+    {
+        if (area is HurtboxComponent hurtbox)
+        {
+            hurtbox.ApplyDamage(10);
+        }
+    }
 }
