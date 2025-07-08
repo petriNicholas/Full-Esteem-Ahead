@@ -1,20 +1,17 @@
 using Game.Components;
+using Game.Templates;
 using Godot;
 
 namespace Game.Enemies;
 
-public partial class EnemyRat : CharacterBody2D
+public partial class EnemyRat : Templates.Enemy
 {
-	[Export] public float AttackRange = 100f;
-	[Export] private PathfindingComponent pathfindingComponent;
-	[Export] private BbSimpleStateMachine bbSimpleStateMachine;
+	
 	private Node2D _player;
-	private AnimatedSprite2D _animatedSprite;
 
 	public override void _Ready()
 	{
-		_animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
-		_animatedSprite.Play("Walk");
+		animatedSprite.Play("Walk");
 
 		_player = GetNode<Node2D>("../Player");
 		pathfindingComponent.SetTarget(_player);
