@@ -1,11 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://gwqbs71kvpwf"]
+[gd_scene load_steps=6 format=3 uid="uid://gwqbs71kvpwf"]
 
 [ext_resource type="Script" uid="uid://bjlrr0qc6phuf" path="res://src/Bullet.cs" id="1_7tpkg"]
+[ext_resource type="PackedScene" uid="uid://wknolwuu6ceo" path="res://res/components/HitboxComponent.tscn" id="2_857s5"]
+[ext_resource type="Texture2D" uid="uid://cx8nmln6ug82d" path="res://res/assets/bullet.png" id="3_xx2f7"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xx2f7"]
+a = Vector2(-12.3333, -14)
+b = Vector2(12.6667, -14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvkt1"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xx2f7")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 5.0
+}]
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_7tpkg")
-Speed = 1.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HitboxComponent" parent="." instance=ExtResource("2_857s5")]
+position = Vector2(12.4861, 14.1085)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(24.5139, 27.8915)
+scale = Vector2(3, 3)
+shape = SubResource("SegmentShape2D_xx2f7")
+
+[node name="BulletAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(24, 0)
+scale = Vector2(3, 1.508)
+sprite_frames = SubResource("SpriteFrames_dvkt1")
+animation = &"shot"

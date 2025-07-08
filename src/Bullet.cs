@@ -1,16 +1,46 @@
 using Godot;
-
-namespace Game;
+using Game.Components;
 
 public partial class Bullet : Node2D
 {
-	[Export] public float _initColRadius { get; set; }
-	[Export] public float Acceleration {get; set;} = 10.0f;
-	[Export] public float Speed {get; set;} = 0;
-	[Export] public float MaxSpeed {get; set;} = 0;
-	[Export] public float Lifetime {get; set;} = 0;
-	[Export] public float CheckBoundaryTime {get; set;} = 0;
+	[Export] public HitboxComponent hitboxComponent;
+	[Export] private float _acceleration { get; set; } = 10.0f;
+	[Export] private float _maxSpeed { get; set; } = 100.0f;
+	[Export] private float _lifetime { get; set; } = 3.0f;
 
-	[Export] public float AngularSpeed = 0.0f;
-	[Export] public float MaxAngularStray = 0.0f;
+	private float _speed = 0.0f;
+	private Vector2 _direction;
+	private float _timer = 0.0f;
+
+	public void Initialize(Vector2 direction)
+	{
+		_direction = direction.Normalized();
+	}
+
+	public override void _Ready()
+	{
+		hitboxComponent.AreaEntered += OnCollision;
+
+		var _animatedSprite = GetNode<AnimatedSprite2D>("BulletAnimation");
+		_animatedSprite.Play("shot");
+	}
+
+	public override void _Process(double delta)
+	{
+		_speed += _acceleration * (float)delta;
+		_speed = Mathf.Min(_speed, _maxSpeed);
+		Position += _direction * _speed * (float)delta;
+
+		_timer += (float)delta;
+		if (_timer >= _lifetime)
+			QueueFree();
+	}
+
+	private void OnCollision(Area2D area)
+	{
+		if (area is HurtboxComponent hurtbox)
+			hurtbox.ApplyDamage(10);
+
+		QueueFree();
+	}
 }

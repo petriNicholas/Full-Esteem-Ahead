@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://caaw5bp5nyghc"]
+
+[ext_resource type="Script" path="res://src/Spawner.cs" id="1_34fhj"]
+
+[node name="Spawner" type="Node2D" node_paths=PackedStringArray("_marker")]
+script = ExtResource("1_34fhj")
+_marker = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+gizmo_extents = 36.2

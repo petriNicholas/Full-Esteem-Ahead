@@ -4,6 +4,8 @@ namespace Game.Components;
 
 public partial class InputComponent : Node2D
 {
+	[Signal]
+	public delegate void AttackEventHandler();
 
 	[Export] private VelocityComponent velocityComponent;
 
@@ -13,11 +15,6 @@ public partial class InputComponent : Node2D
 	private float _rollCooldown = 0f;
 	private float _rollCooldownTimer = 0.0f;
 	private Vector2 _rollVelocity = Vector2.Zero;
-
-    public override void _Ready()
-    {
-        velocityComponent = GetParent<CharacterBody2D>().GetNode<VelocityComponent>("VelocityComponent");
-	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -51,50 +48,58 @@ public partial class InputComponent : Node2D
 				Roll();
 				@event.Set("handled", true);
 			}
+
+			if (eventKey.IsActionPressed("shoot"))
+			{
+				GD.Print("shot");
+				EmitSignal(SignalName.Attack);
+				@event.Set("handled", true);
+			}
+
 		}
 	}
-        public void Roll()
-        {
-            Vector2 rollDirection = velocityComponent.Direction;
+	public void Roll()
+	{
+		Vector2 rollDirection = velocityComponent.Direction;
 
-			if (rollDirection != Vector2.Zero)
-			{
-				_rollVelocity = rollDirection.Normalized() * _rollSpeedMultiplier * velocityComponent.MaxSpeed;
+		if (rollDirection != Vector2.Zero)
+		{
+			_rollVelocity = rollDirection.Normalized() * _rollSpeedMultiplier * velocityComponent.MaxSpeed;
 
-				velocityComponent.SetDirection(Vector2.Zero);
+			velocityComponent.SetDirection(Vector2.Zero);
 
-				_isRolling = true;
-				_rollingTimer = 0.05f;
-				_rollCooldownTimer = _rollCooldown;
-			}
-        }
+			_isRolling = true;
+			_rollingTimer = 0.05f;
+			_rollCooldownTimer = _rollCooldown;
+		}
+	}
 
-        private void HandleRoll(double delta)
-        {
-            CharacterBody2D character = GetParent<CharacterBody2D>();
-			character.Velocity = _rollVelocity;
-			character.MoveAndSlide();
+	private void HandleRoll(double delta)
+	{
+		CharacterBody2D character = GetParent<CharacterBody2D>();
+		character.Velocity = _rollVelocity;
+		character.MoveAndSlide();
 
-            _rollingTimer -= (float)delta;
+		_rollingTimer -= (float)delta;
 
-            if (_rollingTimer <= 0)
-            {
-                _isRolling = false;
-                _rollingTimer = 0.05f;
-				character.Velocity = Vector2.Zero;
-				UserInputMovement();
-            }
-        }
+		if (_rollingTimer <= 0)
+		{
+			_isRolling = false;
+			_rollingTimer = 0.05f;
+			character.Velocity = Vector2.Zero;
+			UserInputMovement();
+		}
+	}
 
-		private void HandleCooldown(double delta)
-    	{
-        	if (_rollCooldownTimer > 0)
-        	{
-           		_rollCooldownTimer -= (float)delta;
-        	}
-    	}
+	private void HandleCooldown(double delta)
+	{
+		if (_rollCooldownTimer > 0)
+		{
+			_rollCooldownTimer -= (float)delta;
+		}
+	}
 
-        private bool IsRolling() => _isRolling;
+	private bool IsRolling() => _isRolling;
 
-		public Vector2 GetDirection() => velocityComponent.Direction;
+	public Vector2 GetDirection() => velocityComponent.Direction;
 }
