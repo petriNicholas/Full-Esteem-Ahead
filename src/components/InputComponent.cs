@@ -48,14 +48,16 @@ public partial class InputComponent : Node2D
 				Roll();
 				@event.Set("handled", true);
 			}
+		}
 
-			if (eventKey.IsActionPressed("shoot"))
+		if (@event is InputEventMouse eventMouse)
+		{
+			if (eventMouse.IsActionPressed("shoot"))
 			{
 				GD.Print("shot");
 				EmitSignal(SignalName.Attack);
 				@event.Set("handled", true);
 			}
-
 		}
 	}
 	public void Roll()

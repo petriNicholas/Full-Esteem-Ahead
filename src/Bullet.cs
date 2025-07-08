@@ -1,5 +1,6 @@
 using Godot;
 using Game.Components;
+using Game;
 
 public partial class Bullet : Node2D
 {
@@ -14,7 +15,8 @@ public partial class Bullet : Node2D
 
 	public void Initialize(Vector2 direction)
 	{
-		_direction = direction.Normalized();
+		_direction = direction;
+		Rotation = direction.Angle();
 	}
 
 	public override void _Ready()
@@ -27,7 +29,7 @@ public partial class Bullet : Node2D
 
 	public override void _Process(double delta)
 	{
-		_speed += _acceleration * (float)delta;
+		_speed += (_maxSpeed - _acceleration) * (float)delta;
 		_speed = Mathf.Min(_speed, _maxSpeed);
 		Position += _direction * _speed * (float)delta;
 
@@ -38,6 +40,8 @@ public partial class Bullet : Node2D
 
 	private void OnCollision(Area2D area)
 	{
+		if (area.GetParent() is Bullet or Player) return;
+		
 		if (area is HurtboxComponent hurtbox)
 			hurtbox.ApplyDamage(10);
 

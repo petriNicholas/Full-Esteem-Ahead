@@ -12,16 +12,17 @@ public partial class AttackComponent : Node2D
 
 	public void Setup()
 	{
-		Direction = (GetGlobalMousePosition() - Position).Normalized();
-
+		// Direction ;
+		Direction = Position.DirectionTo(GetGlobalMousePosition());
+		Direction.Rotated(Position.AngleTo(GetGlobalMousePosition()));
+		
 		var bullet = bulletScene.Instantiate<Bullet>();
 
 		bullet.Initialize(Direction);
 
-		var parent = GetParent();
+		var parent = GetTree();
 
-		parent.AddChild(bullet);
-
+		parent.CurrentScene.AddChild(bullet);
 	}
 
 	public override void _Ready()
