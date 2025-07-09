@@ -38,7 +38,7 @@ scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_xx2f7")
 
 [node name="BulletAnimation" type="AnimatedSprite2D" parent="."]
-position = Vector2(60, 3.38813e-21)
+position = Vector2(60, 0)
 scale = Vector2(1.26563, 0.4375)
 sprite_frames = SubResource("SpriteFrames_dvkt1")
 animation = &"shot"

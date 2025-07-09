@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=20 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" uid="uid://q6qbi1gaf3le" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://gyi1ujt7e1rv" path="res://res/components/VisualCuesComponent.tscn" id="7_gji2c"]
 [ext_resource type="Script" uid="uid://bp4ogl41idedl" path="res://src/Camera.cs" id="8_fmvjq"]
 [ext_resource type="PackedScene" uid="uid://l3ohjpd04wsm" path="res://res/components/AttackComponent.tscn" id="9_68n4g"]
-[ext_resource type="PackedScene" uid="uid://gwqbs71kvpwf" path="res://res/Bullet.tscn" id="10_xn1ba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
 atlas = ExtResource("2_6eyll")
@@ -125,4 +124,3 @@ script = ExtResource("8_fmvjq")
 
 [node name="AttackComponent" parent="." node_paths=PackedStringArray("inputComponent") instance=ExtResource("9_68n4g")]
 inputComponent = NodePath("../InputComponent")
-bulletScene = ExtResource("10_xn1ba")
