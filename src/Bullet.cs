@@ -4,7 +4,6 @@ using Game;
 
 public partial class Bullet : Node2D
 {
-<<<<<<< HEAD
 	[Export] public HitboxComponent hitboxComponent;
 	[Export] private float _acceleration { get; set; } = 1.0f;
 	[Export] private float _maxSpeed { get; set; } = 100.0f;
@@ -54,15 +53,3 @@ public partial class Bullet : Node2D
 		QueueFree();
 	}
 }
-=======
-    [Export] public float _initColRadius { get; set; }
-    [Export] public float Acceleration { get; set; } = 10.0f;
-    [Export] public float Speed { get; set; } = 0;
-    [Export] public float MaxSpeed { get; set; } = 0;
-    [Export] public float Lifetime { get; set; } = 0;
-    [Export] public float CheckBoundaryTime { get; set; } = 0;
-
-    [Export] public float AngularSpeed = 0.0f;
-    [Export] public float MaxAngularStray = 0.0f;
-}
->>>>>>> prod

@@ -90,6 +90,7 @@ size = Vector2(16, 6)
 radius = 2.0
 
 [node name="Rat" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent", "bbSimpleStateMachine")]
+scale = Vector2(3, 3)
 motion_mode = 1
 script = ExtResource("1_tn2up")
 pathfindingComponent = NodePath("PathfindingComponent")
