@@ -28,7 +28,7 @@ script = ExtResource("1_7tpkg")
 hitboxComponent = NodePath("HitboxComponent")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_857s5")]
-position = Vector2(12.4861, 14.1085)
+position = Vector2(53, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(6.5139, -14.1085)
@@ -36,7 +36,7 @@ scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_xx2f7")
 
 [node name="BulletAnimation" type="AnimatedSprite2D" parent="."]
-position = Vector2(19, 1.42109e-14)
+position = Vector2(60, 3.38813e-21)
 scale = Vector2(1.26563, 0.4375)
 sprite_frames = SubResource("SpriteFrames_dvkt1")
 animation = &"shot"
