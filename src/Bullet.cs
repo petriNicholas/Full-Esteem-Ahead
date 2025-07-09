@@ -1,6 +1,7 @@
 using Godot;
 using Game.Components;
-using Game;
+
+namespace Game.Weapons;
 
 public partial class Bullet : Node2D
 {
@@ -32,7 +33,7 @@ public partial class Bullet : Node2D
 
 	public override void _Process(double delta)
 	{
-		_speed -= _acceleration * (float) delta;
+		_speed -= _acceleration * (float)delta;
 		_speed = Mathf.Min(_speed, _maxSpeed);
 
 		Position += _direction * _speed * (float)delta;
