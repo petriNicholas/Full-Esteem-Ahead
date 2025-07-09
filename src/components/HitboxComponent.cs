@@ -21,7 +21,7 @@ public partial class HitboxComponent : Area2D
 		{
 			GD.Print("Hurtbox entered: dealing damage.");
 			hurtbox.ApplyDamage(DamageAmount);
-			EmitSignal(SignalName.Hit, hurtbox, DamageAmount);
+			EmitSignal(nameof(Hit), hurtbox, DamageAmount);
 		}
 	}
 }

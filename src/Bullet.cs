@@ -5,9 +5,9 @@ using Game;
 public partial class Bullet : Node2D
 {
 	[Export] public HitboxComponent hitboxComponent;
-	[Export] private float _acceleration { get; set; } = 1.0f;
-	[Export] private float _maxSpeed { get; set; } = 100.0f;
-	[Export] private float _lifetime { get; set; } = 10.0f;
+	[Export] private float _acceleration = 1.0f;
+	[Export] private float _maxSpeed = 100.0f;
+	[Export] private float _lifetime = 10.0f;
 
 	private float _speed = 0.0f;
 	private Vector2 _direction;
