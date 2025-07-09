@@ -27,7 +27,7 @@ animations = [{
 position = Vector2(-1, 0)
 script = ExtResource("1_7tpkg")
 hitboxComponent = NodePath("HitboxComponent")
-_acceleration = 0.15
+_acceleration = 0.9
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_857s5")]
 position = Vector2(53, 14)

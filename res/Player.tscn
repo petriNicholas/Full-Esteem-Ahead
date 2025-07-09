@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://l3ohjpd04wsm" path="res://res/components/AttackComponent.tscn" id="9_68n4g"]
 [ext_resource type="PackedScene" uid="uid://gwqbs71kvpwf" path="res://res/Bullet.tscn" id="10_xn1ba"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(32, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
 region = Rect2(0, 0, 16, 16)
@@ -18,10 +22,6 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ux60"]
 atlas = ExtResource("2_6eyll")
 region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
-atlas = ExtResource("2_6eyll")
-region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jgbx2"]
 atlas = ExtResource("2_6eyll")
@@ -41,6 +41,14 @@ region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dqtdh"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x0s7")
+}],
+"loop": true,
+"name": &"Stand",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sngse")
@@ -64,16 +72,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_dmivr")
 }],
 "loop": true,
-"name": &"Run",
+"name": &"default",
 "speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4x0s7")
-}],
-"loop": true,
-"name": &"Stand",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3obg4"]
@@ -100,7 +100,6 @@ velocityComponent = NodePath("../VelocityComponent")
 
 [node name="WalkAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dqtdh")
-animation = &"Stand"
 autoplay = "Stand"
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
