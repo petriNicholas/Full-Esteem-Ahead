@@ -54,7 +54,6 @@ public partial class InputComponent : Node2D
 		{
 			if (eventMouse.IsActionPressed("shoot"))
 			{
-				GD.Print("shot");
 				EmitSignal(SignalName.Attack);
 				@event.Set("handled", true);
 			}
