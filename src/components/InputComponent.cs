@@ -7,7 +7,7 @@ public partial class InputComponent : Node2D
 	[Signal]
 	public delegate void AttackEventHandler();
 
-	[Export] private VelocityComponent velocityComponent;
+    [Export] private VelocityComponent velocityComponent;
 
 	private bool _isRolling = false;
 	private float _rollingTimer = 0.05f;
@@ -16,28 +16,28 @@ public partial class InputComponent : Node2D
 	private float _rollCooldownTimer = 0.0f;
 	private Vector2 _rollVelocity = Vector2.Zero;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if (_isRolling)
-		{
-			HandleRoll(delta);
-		}
-		else
-		{
-			UserInputMovement();
-			HandleCooldown(delta);
-		}
-	}
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_isRolling)
+        {
+            HandleRoll(delta);
+        }
+        else
+        {
+            UserInputMovement();
+            HandleCooldown(delta);
+        }
+    }
 
     public void UserInputMovement()
-	{
-		if(_isRolling) return;
+    {
+        if (_isRolling) return;
 
-		Vector2 moveVector = new Vector2(Input.GetActionStrength("right") - Input.GetActionStrength("left"),
-										Input.GetActionStrength("down") - Input.GetActionStrength("up"));
+        Vector2 moveVector = new Vector2(Input.GetActionStrength("right") - Input.GetActionStrength("left"),
+                                        Input.GetActionStrength("down") - Input.GetActionStrength("up"));
 
-		velocityComponent.SetDirection(moveVector);
-	}
+        velocityComponent.SetDirection(moveVector);
+    }
 
 	public override void _UnhandledInput(InputEvent @event)
 	{

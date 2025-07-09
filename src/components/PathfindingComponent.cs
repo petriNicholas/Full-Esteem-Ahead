@@ -4,16 +4,16 @@ namespace Game.Components;
 
 public partial class PathfindingComponent : NavigationAgent2D
 {
-	[Export] public VelocityComponent velocityComponent;
+    [Export] public VelocityComponent velocityComponent;
 
-	private Node2D _target;
-	
-	public void SetTarget(Node2D target)
-	{
-		_target = target;
-	}
+    private Node2D _target;
 
-	public Vector2 GetDirection()
+    public void SetTarget(Node2D target)
+    {
+        _target = target;
+    }
+
+    public Vector2 GetDirection()
     {
         if (_target == null)
             return Vector2.Zero;
@@ -28,16 +28,16 @@ public partial class PathfindingComponent : NavigationAgent2D
         return Vector2.Zero;
     }
 
-	public override void _Process(double delta)
-	{
-		if(_target != null)
-		{
-			TargetPosition = _target.GlobalPosition;
-		}
-
-		if (!IsNavigationFinished())
+    public override void _Process(double delta)
+    {
+        if (_target != null)
         {
-			Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
+            TargetPosition = _target.GlobalPosition;
+        }
+
+        if (!IsNavigationFinished())
+        {
+            Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
             Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
             velocityComponent.SetDirection(direction);
         }
@@ -45,5 +45,5 @@ public partial class PathfindingComponent : NavigationAgent2D
         {
             velocityComponent.SetDirection(Vector2.Zero);
         }
-	}
+    }
 }

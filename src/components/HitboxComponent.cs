@@ -4,15 +4,15 @@ namespace Game.Components;
 
 public partial class HitboxComponent : Area2D
 {
-	[Signal]
-	public delegate void HitEventHandler(HurtboxComponent hurtbox, int amount);
+    [Signal]
+    public delegate void HitEventHandler(HurtboxComponent hurtbox, int amount);
 
-	[Export]
-	public int DamageAmount{get; private set;} = 1;
+    [Export]
+    public int DamageAmount { get; private set; } = 1;
 
- 	public override void _Ready()
+    public override void _Ready()
     {
-    	this.AreaEntered += OnHurtboxEntered;
+        this.AreaEntered += OnHurtboxEntered;
     }
 
 	public void OnHurtboxEntered(Area2D area)
