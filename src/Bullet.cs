@@ -32,14 +32,14 @@ public partial class Bullet : Node2D
 
 	public override void _Process(double delta)
 	{
-		_acceleration += (float)delta;
-		_speed *= _acceleration;
+		_speed -= _acceleration * (float) delta;
+		// Mathf.Clamp(_speed, 0, _maxSpeed);
 		GD.Print(_speed);
 		_speed = Mathf.Min(_speed, _maxSpeed);
 		Position += _direction * _speed * (float)delta;
 
 		_timer += (float)delta;
-		if (_timer >= _lifetime)
+		if (_timer >= _lifetime || _speed <= 0)
 			QueueFree();
 	}
 
