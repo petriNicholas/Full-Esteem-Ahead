@@ -4,121 +4,121 @@ namespace Game.Components;
 
 public partial class HealthComponent : Node
 {
-	private int _maxHealth = 100;
-	private int _currentHealth;
-	private bool _isDead = false;
+    private int _maxHealth = 100;
+    private int _currentHealth;
+    private bool _isDead = false;
 
-	[Signal]
-	public delegate void HealthChangedEventHandler(int health);
+    [Signal]
+    public delegate void HealthChangedEventHandler(int health);
 
-	[Signal]
-	public delegate void HealedEventHandler(int amount);
+    [Signal]
+    public delegate void HealedEventHandler(int amount);
 
-	[Signal]
-	public delegate void HealedFullyEventHandler();
+    [Signal]
+    public delegate void HealedFullyEventHandler();
 
-	[Signal]
-	public delegate void DamagedEventHandler(int amount);
+    [Signal]
+    public delegate void DamagedEventHandler(int amount);
 
-	[Signal]
-	public delegate void DiedEventHandler();
+    [Signal]
+    public delegate void DiedEventHandler();
 
-	[Signal]
-	public delegate void RevivedEventHandler();
-	
-	[Export]
-	public int MaxHealth
-	{
-		get => _maxHealth;
-		private set
-		{
-			_maxHealth = value;
-			if(CurrentHealth > _maxHealth)
-			{
-				CurrentHealth = _maxHealth;
-			}
-		}
-	}
+    [Signal]
+    public delegate void RevivedEventHandler();
 
-	public int CurrentHealth
-	{
-		get => _currentHealth;
-		private set
-		{
-			int oldHealth = _currentHealth;
-			_currentHealth = value;
+    [Export]
+    public int MaxHealth
+    {
+        get => _maxHealth;
+        private set
+        {
+            _maxHealth = value;
+            if (CurrentHealth > _maxHealth)
+            {
+                CurrentHealth = _maxHealth;
+            }
+        }
+    }
 
-			EmitSignal(nameof(HealthChanged), _currentHealth);
+    public int CurrentHealth
+    {
+        get => _currentHealth;
+        private set
+        {
+            int oldHealth = _currentHealth;
+            _currentHealth = value;
 
-			if(_currentHealth <= 0 && !_isDead)
-			{
-				_currentHealth = 0;
-				_isDead = true;
-				EmitSignal(nameof(Died));
-				OnDeath();
-			}
-			else if(_currentHealth > _maxHealth)
-			{
-				_currentHealth = _maxHealth;
-			}
-			else if (_isDead && _currentHealth > 0)
-			{
-				_isDead = false;
+            EmitSignal(nameof(HealthChanged), _currentHealth);
 
-				EmitSignal(nameof(Revived));
-			}
-		}
-	}
+            if (_currentHealth <= 0 && !_isDead)
+            {
+                _currentHealth = 0;
+                _isDead = true;
+                EmitSignal(nameof(Died));
+                OnDeath();
+            }
+            else if (_currentHealth > _maxHealth)
+            {
+                _currentHealth = _maxHealth;
+            }
+            else if (_isDead && _currentHealth > 0)
+            {
+                _isDead = false;
 
-	public bool IsDead => _isDead;
+                EmitSignal(nameof(Revived));
+            }
+        }
+    }
 
-	public override void _Ready()
+    public bool IsDead => _isDead;
+
+    public override void _Ready()
     {
         CurrentHealth = MaxHealth;
     }
 
-	public void TakeDamage(int damage)
-	{
-		if(_isDead) return;
+    public void TakeDamage(int damage)
+    {
+        if (_isDead) return;
 
-		int oldHealth = CurrentHealth;
-		CurrentHealth -= damage;
+        int oldHealth = CurrentHealth;
+        CurrentHealth -= damage;
 
-		EmitSignal(nameof(Damaged), oldHealth - CurrentHealth);
-	}
-	
-	public void Heal(int amount,  bool canRevive = false)
-	{
-		if ((_isDead && !canRevive) || amount < 0) return;
+        EmitSignal(nameof(Damaged), oldHealth - CurrentHealth);
+    }
 
-		int oldHealth = CurrentHealth;
-		CurrentHealth += amount;
+    public void Heal(int amount, bool canRevive = false)
+    {
+        if ((_isDead && !canRevive) || amount < 0) return;
 
-		EmitSignal(nameof(Healed), CurrentHealth - oldHealth);
+        int oldHealth = CurrentHealth;
+        CurrentHealth += amount;
 
-		if (CurrentHealth == MaxHealth)
-		{
-			EmitSignal(nameof(HealedFully));
-		}
-	}
+        EmitSignal(nameof(Healed), CurrentHealth - oldHealth);
 
-	public void HealFully()
-	{
-		Heal(MaxHealth);
-	}
+        if (CurrentHealth == MaxHealth)
+        {
+            EmitSignal(nameof(HealedFully));
+        }
+    }
 
-	private void OnDeath()
-	{
-		GetParent().Free();
-	}
+    public void HealFully()
+    {
+        Heal(MaxHealth);
+    }
 
-	public bool IsAlive()
-	{
-		return CurrentHealth > 0;
-	}
+    private void OnDeath()
+    {
+        GetParent().Free();
+    }
 
-	public bool IsMaxed()
-	{
-		return CurrentHealth >= MaxHealth;
-	}
+    public bool IsAlive()
+    {
+        return CurrentHealth > 0;
+    }
+
+    public bool IsMaxed()
+    {
+        return CurrentHealth >= MaxHealth;
+    }
 }
