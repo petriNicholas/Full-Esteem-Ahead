@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://l3ohjpd04wsm"]
+
+[ext_resource type="Script" uid="uid://lvbqgbcxc7hn" path="res://src/components/AttackComponent.cs" id="1_n4m4i"]
+[ext_resource type="PackedScene" uid="uid://gwqbs71kvpwf" path="res://res/Bullet.tscn" id="2_01ujj"]
+
+[node name="AttackComponent" type="Node2D"]
+script = ExtResource("1_n4m4i")
+bulletScene = ExtResource("2_01ujj")

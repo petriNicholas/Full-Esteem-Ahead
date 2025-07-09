@@ -90,6 +90,7 @@ size = Vector2(16, 6)
 radius = 2.0
 
 [node name="Rat" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent", "bbSimpleStateMachine")]
+scale = Vector2(3, 3)
 motion_mode = 1
 script = ExtResource("1_tn2up")
 pathfindingComponent = NodePath("PathfindingComponent")
@@ -105,8 +106,6 @@ velocityComponent = NodePath("../VelocityComponent")
 [node name="RatAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1nahj")
 animation = &"Walk"
-frame = 4
-frame_progress = 0.746015
 centered = false
 offset = Vector2(-8, -13)
 
@@ -114,7 +113,6 @@ offset = Vector2(-8, -13)
 DamageAmount = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-visible = false
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_6hooe")
 
