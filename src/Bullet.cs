@@ -5,18 +5,21 @@ using Game;
 public partial class Bullet : Node2D
 {
 	[Export] public HitboxComponent hitboxComponent;
-	[Export] private float _acceleration { get; set; } = 10.0f;
+	[Export] private float _acceleration { get; set; } = 1.0f;
 	[Export] private float _maxSpeed { get; set; } = 100.0f;
-	[Export] private float _lifetime { get; set; } = 3.0f;
+	[Export] private float _lifetime { get; set; } = 10.0f;
 
 	private float _speed = 0.0f;
 	private Vector2 _direction;
+	private Vector2 _position;
 	private float _timer = 0.0f;
 
-	public void Initialize(Vector2 direction)
+	public void Initialize(Vector2 direction, Vector2 position)
 	{
-		_direction = direction;
+		Position = position;
+		_direction = direction.Normalized();
 		Rotation = direction.Angle();
+		_speed = _maxSpeed;
 	}
 
 	public override void _Ready()
@@ -29,7 +32,9 @@ public partial class Bullet : Node2D
 
 	public override void _Process(double delta)
 	{
-		_speed += (_maxSpeed - _acceleration) * (float)delta;
+		_acceleration += (float)delta;
+		_speed *= _acceleration;
+		GD.Print(_speed);
 		_speed = Mathf.Min(_speed, _maxSpeed);
 		Position += _direction * _speed * (float)delta;
 

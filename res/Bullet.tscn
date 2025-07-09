@@ -24,8 +24,10 @@ animations = [{
 }]
 
 [node name="Bullet" type="Node2D" node_paths=PackedStringArray("hitboxComponent")]
+position = Vector2(-1, 0)
 script = ExtResource("1_7tpkg")
 hitboxComponent = NodePath("HitboxComponent")
+_acceleration = 0.15
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_857s5")]
 position = Vector2(53, 14)
