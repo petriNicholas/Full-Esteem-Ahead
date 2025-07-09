@@ -10,14 +10,15 @@ public partial class HitboxComponent : Area2D
     [Export]
     public int DamageAmount { get; private set; } = 1;
 
-    public override void _Ready()
-    {
-        this.AreaEntered += OnHurtboxEntered;
+	public override void _Ready()
+	{
+		this.AreaEntered += OnHurtboxEntered;
     }
 
 	public void OnHurtboxEntered(Area2D area)
 	{
-		if(area is HurtboxComponent hurtbox)
+		if (area.GetOwner() is Player && this.GetOwner() is Bullet) return;
+		if (area is HurtboxComponent hurtbox)
 		{
 			GD.Print("Hurtbox entered: dealing damage.");
 			hurtbox.ApplyDamage(DamageAmount);
