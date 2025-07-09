@@ -1,4 +1,5 @@
 using Godot;
+using Game.Weapons;
 
 namespace Game.Components;
 
