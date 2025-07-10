@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dd6toludvs812" path="res://res/Player.tscn" id="1_3smrk"]
 [ext_resource type="PackedScene" uid="uid://bjl6sea27nvlx" path="res://res/ArenaGround.tscn" id="1_07125"]
-[ext_resource type="PackedScene" uid="uid://caaw5bp5nyghc" path="res://res/Spawner.tscn" id="1_eqohb"]
+[ext_resource type="PackedScene" uid="uid://ctsfphk37vc6e" path="res://res/Spawner.tscn" id="1_eqohb"]
 [ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/enemies/EnemyRat.tscn" id="2_y7ifc"]
 [ext_resource type="Texture2D" uid="uid://dy7x278nxjpeg" path="res://res/assets/environment/stone_floor_4x4plus3.png" id="4_jd11j"]
 [ext_resource type="TileSet" uid="uid://mg8s0xmi0u82" path="res://res/tres/Interior.tres" id="5_2i3hc"]
