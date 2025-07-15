@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=20 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" uid="uid://q6qbi1gaf3le" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
@@ -8,6 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
 [ext_resource type="PackedScene" uid="uid://gyi1ujt7e1rv" path="res://res/components/VisualCuesComponent.tscn" id="7_gji2c"]
 [ext_resource type="Script" uid="uid://bp4ogl41idedl" path="res://src/Camera.cs" id="8_fmvjq"]
+[ext_resource type="PackedScene" uid="uid://l3ohjpd04wsm" path="res://res/components/AttackComponent.tscn" id="9_68n4g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
+atlas = ExtResource("2_6eyll")
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sngse"]
 atlas = ExtResource("2_6eyll")
@@ -16,10 +21,6 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ux60"]
 atlas = ExtResource("2_6eyll")
 region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4x0s7"]
-atlas = ExtResource("2_6eyll")
-region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jgbx2"]
 atlas = ExtResource("2_6eyll")
@@ -39,6 +40,14 @@ region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dqtdh"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x0s7")
+}],
+"loop": true,
+"name": &"Stand",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sngse")
@@ -90,20 +99,16 @@ velocityComponent = NodePath("../VelocityComponent")
 
 [node name="WalkAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dqtdh")
-autoplay = "default"
-frame = 2
-frame_progress = 0.12824
+autoplay = "Stand"
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
 HealthComponent = NodePath("../HealthComponent")
 visualCuesComponent = ExtResource("7_gji2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-visible = false
 shape = SubResource("RectangleShape2D_3obg4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_mj51x")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -116,3 +121,6 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 editor_draw_drag_margin = true
 script = ExtResource("8_fmvjq")
+
+[node name="AttackComponent" parent="." node_paths=PackedStringArray("inputComponent") instance=ExtResource("9_68n4g")]
+inputComponent = NodePath("../InputComponent")
