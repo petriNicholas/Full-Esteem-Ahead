@@ -5,11 +5,8 @@ namespace Game.Components;
 public partial class HealthComponent : Node
 {
     [Signal] public delegate void HealthChangedEventHandler(int health);
-
     [Signal] public delegate void HealedEventHandler(int amount);
-
     [Signal] public delegate void DamagedEventHandler(int amount);
-
     [Signal] public delegate void DiedEventHandler();
 
     private int _maxHealth;
