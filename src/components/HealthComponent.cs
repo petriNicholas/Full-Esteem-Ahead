@@ -9,7 +9,7 @@ public partial class HealthComponent : Node
     [Signal] public delegate void DamagedEventHandler(int amount);
     [Signal] public delegate void DiedEventHandler();
 
-    private int _maxHealth;
+    private int _maxHealth = 100;
     private int _currentHealth;
     private bool _isDead = false;
     public bool IsDead => _isDead;

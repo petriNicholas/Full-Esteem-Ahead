@@ -103,7 +103,7 @@ autoplay = "Stand"
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
 HealthComponent = NodePath("../HealthComponent")
-visualCuesComponent = ExtResource("7_gji2c")
+VisualCuesComponent = ExtResource("7_gji2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_3obg4")
@@ -111,7 +111,7 @@ shape = SubResource("RectangleShape2D_3obg4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mj51x")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 zoom = Vector2(2, 2)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -121,6 +121,7 @@ drag_right_margin = 0.1
 drag_bottom_margin = 0.1
 editor_draw_drag_margin = true
 script = ExtResource("8_fmvjq")
+player = NodePath("..")
 
 [node name="AttackComponent" parent="." node_paths=PackedStringArray("inputComponent") instance=ExtResource("9_68n4g")]
 inputComponent = NodePath("../InputComponent")
