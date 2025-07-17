@@ -4,27 +4,21 @@ namespace Game.Components;
 
 public partial class HealthComponent : Node
 {
-    private int _maxHealth = 100;
+    private int _maxHealth;
     private int _currentHealth;
     private bool _isDead = false;
 
-    [Signal]
-    public delegate void HealthChangedEventHandler(int health);
+    [Signal] public delegate void HealthChangedEventHandler(int health);
 
-    [Signal]
-    public delegate void HealedEventHandler(int amount);
+    [Signal] public delegate void HealedEventHandler(int amount);
 
-    [Signal]
-    public delegate void HealedFullyEventHandler();
+    [Signal] public delegate void HealedFullyEventHandler();
 
-    [Signal]
-    public delegate void DamagedEventHandler(int amount);
+    [Signal] public delegate void DamagedEventHandler(int amount);
 
-    [Signal]
-    public delegate void DiedEventHandler();
+    [Signal] public delegate void DiedEventHandler();
 
-    [Signal]
-    public delegate void RevivedEventHandler();
+    [Signal] public delegate void RevivedEventHandler();
 
     [Export]
     public int MaxHealth
@@ -32,7 +26,13 @@ public partial class HealthComponent : Node
         get => _maxHealth;
         private set
         {
+            int diff = value - _maxHealth;
             _maxHealth = value;
+
+            if (diff > 0)
+            {
+                CurrentHealth += diff;
+            }
             if (CurrentHealth > _maxHealth)
             {
                 CurrentHealth = _maxHealth;
