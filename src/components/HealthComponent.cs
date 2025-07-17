@@ -4,21 +4,18 @@ namespace Game.Components;
 
 public partial class HealthComponent : Node
 {
-    private int _maxHealth;
-    private int _currentHealth;
-    private bool _isDead = false;
-
     [Signal] public delegate void HealthChangedEventHandler(int health);
 
     [Signal] public delegate void HealedEventHandler(int amount);
-
-    [Signal] public delegate void HealedFullyEventHandler();
 
     [Signal] public delegate void DamagedEventHandler(int amount);
 
     [Signal] public delegate void DiedEventHandler();
 
-    [Signal] public delegate void RevivedEventHandler();
+    private int _maxHealth;
+    private int _currentHealth;
+    private bool _isDead = false;
+    public bool IsDead => _isDead;
 
     [Export]
     public int MaxHealth
@@ -61,16 +58,8 @@ public partial class HealthComponent : Node
             {
                 _currentHealth = _maxHealth;
             }
-            else if (_isDead && _currentHealth > 0)
-            {
-                _isDead = false;
-
-                EmitSignal(nameof(Revived));
-            }
         }
     }
-
-    public bool IsDead => _isDead;
 
     public override void _Ready()
     {
@@ -80,26 +69,15 @@ public partial class HealthComponent : Node
     public void TakeDamage(int damage)
     {
         if (_isDead) return;
-
-        int oldHealth = CurrentHealth;
         CurrentHealth -= damage;
-
-        EmitSignal(nameof(Damaged), oldHealth - CurrentHealth);
+        EmitSignal(nameof(Damaged), damage);
     }
 
-    public void Heal(int amount, bool canRevive = false)
+    public void Heal(int amount)
     {
-        if ((_isDead && !canRevive) || amount < 0) return;
-
-        int oldHealth = CurrentHealth;
+        if (_isDead || amount < 0) return;
         CurrentHealth += amount;
-
-        EmitSignal(nameof(Healed), CurrentHealth - oldHealth);
-
-        if (CurrentHealth == MaxHealth)
-        {
-            EmitSignal(nameof(HealedFully));
-        }
+        EmitSignal(nameof(Healed), amount);
     }
 
     public void HealFully()
@@ -110,11 +88,6 @@ public partial class HealthComponent : Node
     private void OnDeath()
     {
         GetParent().Free();
-    }
-
-    public bool IsAlive()
-    {
-        return CurrentHealth > 0;
     }
 
     public bool IsMaxed()
