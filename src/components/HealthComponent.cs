@@ -42,9 +42,7 @@ public partial class HealthComponent : Node
         get => _currentHealth;
         private set
         {
-            int oldHealth = _currentHealth;
             _currentHealth = value;
-
             EmitSignal(nameof(HealthChanged), _currentHealth);
 
             if (_currentHealth <= 0 && !_isDead)
