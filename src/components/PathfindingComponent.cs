@@ -26,7 +26,7 @@ public partial class PathfindingComponent : NavigationAgent2D
             velocityComponent.SetDirection(Vector2.Zero);
         }
     }
-    
+
     public void SetTarget(Node2D target)
     {
         _target = target;

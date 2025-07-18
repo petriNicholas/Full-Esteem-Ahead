@@ -20,7 +20,7 @@ public partial class BbSimpleStateMachine : Node
 
         if (!string.IsNullOrEmpty(InitialState))
         {
-        TransitionTo(InitialState);
+            TransitionTo(InitialState);
         }
     }
 
@@ -28,6 +28,7 @@ public partial class BbSimpleStateMachine : Node
     {
         if (newState == _state) return;
         if (!string.IsNullOrEmpty(_state)) ExitState();
+
         _state = newState;
         EnterState();
     }
@@ -59,7 +60,7 @@ public partial class BbSimpleStateMachine : Node
         if (_stateOwner.HasMethod(method))
         {
             return data.HasValue
-            ? _stateOwner.Call(method, data.Value) 
+            ? _stateOwner.Call(method, data.Value)
             : _stateOwner.Call(method);
         }
         return null;
