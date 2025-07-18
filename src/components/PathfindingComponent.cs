@@ -8,6 +8,25 @@ public partial class PathfindingComponent : NavigationAgent2D
 
     private Node2D _target;
 
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_target != null)
+        {
+            TargetPosition = _target.GlobalPosition;
+        }
+
+        if (!IsNavigationFinished())
+        {
+            Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
+            Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
+            velocityComponent.SetDirection(direction);
+        }
+        else
+        {
+            velocityComponent.SetDirection(Vector2.Zero);
+        }
+    }
+    
     public void SetTarget(Node2D target)
     {
         _target = target;
@@ -26,24 +45,5 @@ public partial class PathfindingComponent : NavigationAgent2D
             return (GetNextPathPosition() - agentPosition).Normalized();
         }
         return Vector2.Zero;
-    }
-
-    public override void _Process(double delta)
-    {
-        if (_target != null)
-        {
-            TargetPosition = _target.GlobalPosition;
-        }
-
-        if (!IsNavigationFinished())
-        {
-            Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
-            Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
-            velocityComponent.SetDirection(direction);
-        }
-        else
-        {
-            velocityComponent.SetDirection(Vector2.Zero);
-        }
     }
 }
