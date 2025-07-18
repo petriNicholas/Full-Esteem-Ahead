@@ -5,8 +5,8 @@ namespace Game.Components;
 public partial class VelocityComponent : Node2D
 {
     [Export] public float MaxSpeed { get; private set; } = 100.0f;
-    [Export] public float AccelerationCoefficient { get; private set; } = 6.0f;
-    [Export] public float DecelerationCoefficient { get; private set; } = 6.0f;
+    [Export] public float AccelerationCoefficient { get; private set; } = 8.0f;
+    [Export] public float DecelerationCoefficient { get; private set; } = 8.0f;
     public float SpeedModifier { get; private set; } = 1.0f;
     public Vector2 Direction { get; private set; } = Vector2.Zero;
     private CharacterBody2D _characterNode;
