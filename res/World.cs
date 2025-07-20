@@ -12,6 +12,6 @@ public partial class World : Node
 
     private void OnDied(HealthComponent healthComponent)
     {
-        GD.Print(healthComponent.IsAlive());
+        return;
     }
 }

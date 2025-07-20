@@ -1,11 +1,36 @@
-[gd_scene load_steps=19 format=3 uid="uid://ckb4b2cghri65"]
+[gd_scene load_steps=26 format=3 uid="uid://ckb4b2cghri65"]
 
 [ext_resource type="Script" uid="uid://ciq4p8l8wtykr" path="res://src/EnemyRat.cs" id="1_tn2up"]
 [ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/assets/EnemyRat.png" id="1_vwosk"]
 [ext_resource type="Script" uid="uid://dlv10sx4tnj1h" path="res://src/components/VelocityComponent.cs" id="2_trbl0"]
 [ext_resource type="PackedScene" uid="uid://wknolwuu6ceo" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]
 [ext_resource type="PackedScene" uid="uid://c2gpss0a263hb" path="res://res/components/PathfindingComponent.tscn" id="3_yufat"]
+[ext_resource type="Texture2D" uid="uid://droyvkjipxn6k" path="res://res/assets/EnemyRat-Jump.png" id="4_b0g0x"]
 [ext_resource type="PackedScene" uid="uid://chnydmfbtt87r" path="res://res/components/BbSimpleStateMachine.tscn" id="6_g10qr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0g0x"]
+atlas = ExtResource("1_vwosk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgfqx"]
+atlas = ExtResource("4_b0g0x")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tfxi"]
+atlas = ExtResource("4_b0g0x")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhe0i"]
+atlas = ExtResource("4_b0g0x")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaxr1"]
+atlas = ExtResource("4_b0g0x")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7bdc"]
+atlas = ExtResource("4_b0g0x")
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpna6"]
 atlas = ExtResource("1_vwosk")
@@ -47,6 +72,34 @@ region = Rect2(0, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_b0g0x")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgfqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tfxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhe0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gaxr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7bdc")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vpna6")
 }, {
 "duration": 1.0,
@@ -76,11 +129,6 @@ animations = [{
 "loop": true,
 "name": &"Walk",
 "speed": 12.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"default",
-"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6hooe"]
@@ -106,7 +154,7 @@ velocityComponent = NodePath("../VelocityComponent")
 
 [node name="RatAnimation" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1nahj")
-animation = &"Walk"
+animation = &"Idle"
 centered = false
 offset = Vector2(-8, -13)
 

@@ -8,6 +8,7 @@ public partial class PathfindingComponent : NavigationAgent2D
 
     private Node2D _target;
     private Node2D _agentNode;
+    public bool IsNavigationPaused { get; private set; } = false;
 
     public override void _Ready()
     {
@@ -21,14 +22,17 @@ public partial class PathfindingComponent : NavigationAgent2D
             this.TargetPosition = _target.GlobalPosition;
         }
 
-        if (!IsNavigationFinished())
+        if (!IsNavigationPaused)
         {
-            Vector2 direction = (GetNextPathPosition() - _agentNode.GlobalPosition).Normalized();
-            velocityComponent.SetDirection(direction);
-        }
-        else
-        {
-            velocityComponent.SetDirection(Vector2.Zero);
+            if (!IsNavigationFinished())
+            {
+                Vector2 direction = (GetNextPathPosition() - _agentNode.GlobalPosition).Normalized();
+                velocityComponent.SetDirection(direction);
+            }
+            else
+            {
+                velocityComponent.SetDirection(Vector2.Zero);
+            }
         }
     }
 
@@ -49,5 +53,10 @@ public partial class PathfindingComponent : NavigationAgent2D
             return (GetNextPathPosition() - _agentNode.GlobalPosition).Normalized();
         }
         return Vector2.Zero;
+    }
+
+    public void PauseNagivation(bool state)
+    {
+        IsNavigationPaused = state;
     }
 }
