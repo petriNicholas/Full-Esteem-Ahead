@@ -31,6 +31,8 @@ public partial class EnemyRat : CharacterBody2D
 
     public void Walk_physics_process(float delta)
     {
+        UpdateSpriteDirection();
+
         if (_player != null && Position.DistanceTo(_player.Position) <= AttackRange)
         {
             bbSimpleStateMachine.TransitionTo("Attack");
@@ -39,18 +41,30 @@ public partial class EnemyRat : CharacterBody2D
     }
 
     // ====== Stan "Attack" ======
-    public void Attack_enter()
+    public async void Attack_enter()
     {
+        pathfindingComponent.PauseNagivation(true);
         pathfindingComponent.velocityComponent.SetSpeedModifier(0f);
-    }
 
-    public void Attack_physics_process(float delta)
-    {
-        if (Position.DistanceTo(_player.Position) > AttackRange)
-        {
-            bbSimpleStateMachine.TransitionTo("Walk");
-        }
+        _animatedSprite.Play("Jump");
+
+        await ToSignal(GetTree().CreateTimer(1.0), "timeout");
+
+        UpdateSpriteDirection();
+        Vector2 jumpDirection = (_player.GlobalPosition - GlobalPosition).Normalized();
+        pathfindingComponent.velocityComponent.SetDirection(jumpDirection);
+        pathfindingComponent.velocityComponent.SetSpeedModifier(2.0f);
+
+        await ToSignal(GetTree().CreateTimer(0.5), "timeout");
+
+        pathfindingComponent.velocityComponent.SetSpeedModifier(0f);
+        _animatedSprite.Play("Idle");
+        await ToSignal(GetTree().CreateTimer(0.5), "timeout");
+
+        pathfindingComponent.PauseNagivation(false);
+        bbSimpleStateMachine.TransitionTo("Walk");
     }
+    // ===========================
 
     private void OnHit(HurtboxComponent hurtbox, int amount)
     {
@@ -58,5 +72,10 @@ public partial class EnemyRat : CharacterBody2D
 
         if (target is Player)
             hurtbox.ApplyDamage(amount);
+    }
+
+    private void UpdateSpriteDirection()
+    {
+        _animatedSprite.FlipH = _player.GlobalPosition.X < GlobalPosition.X;
     }
 }
