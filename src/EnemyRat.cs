@@ -20,8 +20,6 @@ public partial class EnemyRat : CharacterBody2D
         _player = GetNode<Node2D>("../Player");
         pathfindingComponent.SetTarget(_player);
 
-        bbSimpleStateMachine.TransitionTo("Walk");
-
         hitboxComponent.Hit += OnHit;
     }
 
@@ -55,10 +53,10 @@ public partial class EnemyRat : CharacterBody2D
     }
 
     private void OnHit(HurtboxComponent hurtbox, int amount)
-	{
-		var target = hurtbox.GetOwner();
+    {
+        var target = hurtbox.GetOwner();
 
-		if (target is Player)
+        if (target is Player)
             hurtbox.ApplyDamage(amount);
-	}
+    }
 }

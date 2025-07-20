@@ -1,5 +1,4 @@
 using Godot;
-using Game.Weapons;
 
 namespace Game.Components;
 
@@ -9,16 +8,16 @@ public partial class HitboxComponent : Area2D
 
     [Export] public int DamageAmount { get; private set; } = 1;
 
-	public override void _Ready()
-	{
-		this.AreaEntered += OnHurtboxEntered;
+    public override void _Ready()
+    {
+        this.AreaEntered += OnHurtboxEntered;
     }
-
-	public void OnHurtboxEntered(Area2D area)
-	{
-		if (area is HurtboxComponent hurtbox)
-		{
-			EmitSignal(nameof(Hit), hurtbox, DamageAmount);
-		}
-	}
+    
+    public void OnHurtboxEntered(Area2D area)
+    {
+        if (area is HurtboxComponent hurtbox)
+        {
+        EmitSignal(nameof(Hit), hurtbox, DamageAmount);
+        }
+    }
 }

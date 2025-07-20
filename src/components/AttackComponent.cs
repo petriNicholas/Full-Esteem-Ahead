@@ -5,25 +5,25 @@ namespace Game.Components;
 
 public partial class AttackComponent : Node2D
 {
-	[Export] private InputComponent inputComponent;
-	[Export] private PackedScene bulletScene;
+    [Export] private InputComponent inputComponent;
+    [Export] private PackedScene bulletScene;
 
-	public override void _Ready()
-	{
-		inputComponent.Attack += Setup;
-	}
-	
-	public void Setup()
-	{
-		var _characterNode = GetParent<CharacterBody2D>();
+    public override void _Ready()
+    {
+        inputComponent.Attack += Setup;
+    }
 
-		Vector2 Direction = (GetGlobalMousePosition() - _characterNode.Position).Normalized();
+    public void Setup()
+    {
+        var _characterNode = GetParent<CharacterBody2D>();
 
-		var bullet = bulletScene.Instantiate<Bullet>();
-		bullet.Initialize(Direction, _characterNode.Position);
+        Vector2 Direction = (GetGlobalMousePosition() - _characterNode.Position).Normalized();
 
-		GetTree().CurrentScene.AddChild(bullet);
-	}
+        var bullet = bulletScene.Instantiate<Bullet>();
+        bullet.Initialize(Direction, _characterNode.Position);
 
-	
+        GetTree().CurrentScene.AddChild(bullet);
+    }
+
+
 }

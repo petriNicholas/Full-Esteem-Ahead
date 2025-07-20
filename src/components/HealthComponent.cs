@@ -11,7 +11,8 @@ public partial class HealthComponent : Node
 
     private int _maxHealth = 100;
     private int _currentHealth;
-    public bool IsDead { get; private set; } = false;
+    private bool _isDead = false;
+    public bool IsDead => _isDead;
 
     [Export]
     public int MaxHealth
@@ -62,14 +63,14 @@ public partial class HealthComponent : Node
 
     public void TakeDamage(int damage)
     {
-        if (IsDead) return;
+        if (_isDead) return;
         CurrentHealth -= damage;
         EmitSignal(nameof(Damaged), damage);
     }
 
     public void Heal(int amount)
     {
-        if (IsDead || amount < 0) return;
+        if (_isDead || amount < 0) return;
         CurrentHealth += amount;
         EmitSignal(nameof(Healed), amount);
     }
