@@ -5,6 +5,7 @@ namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {
+    [Export] public HitboxComponent hitboxComponent;
     [Export] public float AttackRange = 100f;
     [Export] private PathfindingComponent pathfindingComponent;
     [Export] private BbSimpleStateMachine bbSimpleStateMachine;
@@ -20,6 +21,8 @@ public partial class EnemyRat : CharacterBody2D
         pathfindingComponent.SetTarget(_player);
 
         bbSimpleStateMachine.TransitionTo("Walk");
+
+        hitboxComponent.Hit += OnHit;
     }
 
     // ====== Stan "Walk" ======
@@ -50,4 +53,12 @@ public partial class EnemyRat : CharacterBody2D
             bbSimpleStateMachine.TransitionTo("Walk");
         }
     }
+
+    private void OnHit(HurtboxComponent hurtbox, int amount)
+	{
+		var target = hurtbox.GetOwner();
+
+		if (target is Player)
+            hurtbox.ApplyDamage(amount);
+	}
 }

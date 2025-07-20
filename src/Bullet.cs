@@ -25,7 +25,7 @@ public partial class Bullet : Node2D
 
 	public override void _Ready()
 	{
-		hitboxComponent.AreaEntered += OnCollision;
+		hitboxComponent.Hit += OnHit;
 
 		var _animatedSprite = GetNode<AnimatedSprite2D>("BulletAnimation");
 		_animatedSprite.Play("shot");
@@ -43,14 +43,13 @@ public partial class Bullet : Node2D
 			QueueFree();
 	}
 
-	private void OnCollision(Area2D area)
+	private void OnHit(HurtboxComponent hurtbox, int amount)
 	{
-		if (area.GetOwner() is Bullet or Player)
-		{
-			return;
-		}
+		var target = hurtbox.GetOwner();
 
-		if (area is HurtboxComponent hurtbox) hurtbox.ApplyDamage(10);
+		if (target is Bullet or Player) return;
+
+		hurtbox.ApplyDamage(amount);
 
 		QueueFree();
 	}
