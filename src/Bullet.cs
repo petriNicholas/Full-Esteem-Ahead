@@ -53,4 +53,53 @@ public partial class Bullet : Node2D
 
         QueueFree();
     }
+=======
+	[Export] public HitboxComponent hitboxComponent;
+	[Export] private float _acceleration = 1.0f;
+	[Export] private float _maxSpeed = 100.0f;
+	[Export] private float _lifetime = 10.0f;
+
+	private float _speed = 0.0f;
+	private Vector2 _direction;
+	private Vector2 _position;
+	private float _timer = 0.0f;
+
+	public void Initialize(Vector2 direction, Vector2 position)
+	{
+		Position = position;
+		_direction = direction.Normalized();
+		Rotation = direction.Angle();
+		_speed = _maxSpeed;
+	}
+
+	public override void _Ready()
+	{
+		hitboxComponent.Hit += OnHit;
+
+		var _animatedSprite = GetNode<AnimatedSprite2D>("BulletAnimation");
+		_animatedSprite.Play("shot");
+	}
+
+	public override void _Process(double delta)
+	{
+		_speed -= _acceleration * (float)delta;
+		_speed = Mathf.Min(_speed, _maxSpeed);
+
+		Position += _direction * _speed * (float)delta;
+
+		_timer += (float)delta;
+		if (_timer >= _lifetime || _speed <= 0)
+			QueueFree();
+	}
+
+	private void OnHit(HurtboxComponent hurtbox, int amount)
+	{
+		var target = hurtbox.GetOwner();
+
+		if (target is Bullet or Player) return;
+
+		hurtbox.ApplyDamage(amount);
+
+		QueueFree();
+	}
 }

@@ -12,12 +12,12 @@ public partial class HitboxComponent : Area2D
     {
         this.AreaEntered += OnHurtboxEntered;
     }
-
+    
     public void OnHurtboxEntered(Area2D area)
     {
         if (area is HurtboxComponent hurtbox)
         {
-            EmitSignal(nameof(Hit), hurtbox, DamageAmount);
+        EmitSignal(nameof(Hit), hurtbox, DamageAmount);
         }
     }
 }

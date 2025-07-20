@@ -42,10 +42,10 @@ public partial class HealthComponent : Node
             _currentHealth = value;
             EmitSignal(nameof(HealthChanged), _currentHealth);
 
-            if (_currentHealth <= 0 && !_isDead)
+            if (_currentHealth <= 0 && !IsDead)
             {
                 _currentHealth = 0;
-                _isDead = true;
+                IsDead = true;
                 EmitSignal(nameof(Died));
                 OnDeath();
             }
