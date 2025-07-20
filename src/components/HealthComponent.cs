@@ -45,7 +45,7 @@ public partial class HealthComponent : Node
             if (_currentHealth <= 0 && !IsDead)
             {
                 _currentHealth = 0;
-                IsDead = true;
+                _isDead = true;
                 EmitSignal(nameof(Died));
                 OnDeath();
             }
