@@ -4,27 +4,15 @@ namespace Game.Components;
 
 public partial class HealthComponent : Node
 {
+    [Signal] public delegate void HealthChangedEventHandler(int health);
+    [Signal] public delegate void HealedEventHandler(int amount);
+    [Signal] public delegate void DamagedEventHandler(int amount);
+    [Signal] public delegate void DiedEventHandler();
+
     private int _maxHealth = 100;
     private int _currentHealth;
     private bool _isDead = false;
-
-    [Signal]
-    public delegate void HealthChangedEventHandler(int health);
-
-    [Signal]
-    public delegate void HealedEventHandler(int amount);
-
-    [Signal]
-    public delegate void HealedFullyEventHandler();
-
-    [Signal]
-    public delegate void DamagedEventHandler(int amount);
-
-    [Signal]
-    public delegate void DiedEventHandler();
-
-    [Signal]
-    public delegate void RevivedEventHandler();
+    public bool IsDead => _isDead;
 
     [Export]
     public int MaxHealth
@@ -32,7 +20,13 @@ public partial class HealthComponent : Node
         get => _maxHealth;
         private set
         {
+            int diff = value - _maxHealth;
             _maxHealth = value;
+
+            if (diff > 0)
+            {
+                CurrentHealth += diff;
+            }
             if (CurrentHealth > _maxHealth)
             {
                 CurrentHealth = _maxHealth;
@@ -45,12 +39,10 @@ public partial class HealthComponent : Node
         get => _currentHealth;
         private set
         {
-            int oldHealth = _currentHealth;
             _currentHealth = value;
-
             EmitSignal(nameof(HealthChanged), _currentHealth);
 
-            if (_currentHealth <= 0 && !_isDead)
+            if (_currentHealth <= 0 && !IsDead)
             {
                 _currentHealth = 0;
                 _isDead = true;
@@ -61,16 +53,8 @@ public partial class HealthComponent : Node
             {
                 _currentHealth = _maxHealth;
             }
-            else if (_isDead && _currentHealth > 0)
-            {
-                _isDead = false;
-
-                EmitSignal(nameof(Revived));
-            }
         }
     }
-
-    public bool IsDead => _isDead;
 
     public override void _Ready()
     {
@@ -80,26 +64,15 @@ public partial class HealthComponent : Node
     public void TakeDamage(int damage)
     {
         if (_isDead) return;
-
-        int oldHealth = CurrentHealth;
         CurrentHealth -= damage;
-
-        EmitSignal(nameof(Damaged), oldHealth - CurrentHealth);
+        EmitSignal(nameof(Damaged), damage);
     }
 
-    public void Heal(int amount, bool canRevive = false)
+    public void Heal(int amount)
     {
-        if ((_isDead && !canRevive) || amount < 0) return;
-
-        int oldHealth = CurrentHealth;
+        if (_isDead || amount < 0) return;
         CurrentHealth += amount;
-
-        EmitSignal(nameof(Healed), CurrentHealth - oldHealth);
-
-        if (CurrentHealth == MaxHealth)
-        {
-            EmitSignal(nameof(HealedFully));
-        }
+        EmitSignal(nameof(Healed), amount);
     }
 
     public void HealFully()
@@ -110,11 +83,6 @@ public partial class HealthComponent : Node
     private void OnDeath()
     {
         GetParent().Free();
-    }
-
-    public bool IsAlive()
-    {
-        return CurrentHealth > 0;
     }
 
     public bool IsMaxed()

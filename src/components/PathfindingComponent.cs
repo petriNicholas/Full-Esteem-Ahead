@@ -7,6 +7,34 @@ public partial class PathfindingComponent : NavigationAgent2D
     [Export] public VelocityComponent velocityComponent;
 
     private Node2D _target;
+    private Node2D _agentNode;
+    public bool IsNavigationPaused { get; private set; } = false;
+
+    public override void _Ready()
+    {
+        _agentNode = GetParent<Node2D>();
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_target != null)
+        {
+            this.TargetPosition = _target.GlobalPosition;
+        }
+
+        if (!IsNavigationPaused)
+        {
+            if (!IsNavigationFinished())
+            {
+                Vector2 direction = (GetNextPathPosition() - _agentNode.GlobalPosition).Normalized();
+                velocityComponent.SetDirection(direction);
+            }
+            else
+            {
+                velocityComponent.SetDirection(Vector2.Zero);
+            }
+        }
+    }
 
     public void SetTarget(Node2D target)
     {
@@ -18,32 +46,17 @@ public partial class PathfindingComponent : NavigationAgent2D
         if (_target == null)
             return Vector2.Zero;
 
-        TargetPosition = _target.GlobalPosition;
+        this.TargetPosition = _target.GlobalPosition;
 
         if (!IsNavigationFinished())
         {
-            Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
-            return (GetNextPathPosition() - agentPosition).Normalized();
+            return (GetNextPathPosition() - _agentNode.GlobalPosition).Normalized();
         }
         return Vector2.Zero;
     }
 
-    public override void _Process(double delta)
+    public void PauseNagivation(bool state)
     {
-        if (_target != null)
-        {
-            TargetPosition = _target.GlobalPosition;
-        }
-
-        if (!IsNavigationFinished())
-        {
-            Vector2 agentPosition = GetParent<Node2D>().GlobalPosition;
-            Vector2 direction = (GetNextPathPosition() - agentPosition).Normalized();
-            velocityComponent.SetDirection(direction);
-        }
-        else
-        {
-            velocityComponent.SetDirection(Vector2.Zero);
-        }
+        IsNavigationPaused = state;
     }
 }

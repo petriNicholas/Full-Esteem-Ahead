@@ -5,6 +5,7 @@ namespace Game.Enemies;
 
 public partial class EnemyRat : CharacterBody2D
 {
+    [Export] public HitboxComponent hitboxComponent;
     [Export] public float AttackRange = 100f;
     [Export] private PathfindingComponent pathfindingComponent;
     [Export] private BbSimpleStateMachine bbSimpleStateMachine;
@@ -19,7 +20,7 @@ public partial class EnemyRat : CharacterBody2D
         _player = GetNode<Node2D>("../Player");
         pathfindingComponent.SetTarget(_player);
 
-        bbSimpleStateMachine.TransitionTo("Walk");
+        hitboxComponent.Hit += OnHit;
     }
 
     // ====== Stan "Walk" ======
@@ -30,6 +31,8 @@ public partial class EnemyRat : CharacterBody2D
 
     public void Walk_physics_process(float delta)
     {
+        UpdateSpriteDirection();
+
         if (_player != null && Position.DistanceTo(_player.Position) <= AttackRange)
         {
             bbSimpleStateMachine.TransitionTo("Attack");
@@ -38,16 +41,41 @@ public partial class EnemyRat : CharacterBody2D
     }
 
     // ====== Stan "Attack" ======
-    public void Attack_enter()
+    public async void Attack_enter()
     {
+        pathfindingComponent.PauseNagivation(true);
         pathfindingComponent.velocityComponent.SetSpeedModifier(0f);
+
+        _animatedSprite.Play("Jump");
+
+        await ToSignal(GetTree().CreateTimer(1.0), "timeout");
+
+        UpdateSpriteDirection();
+        Vector2 jumpDirection = (_player.GlobalPosition - GlobalPosition).Normalized();
+        pathfindingComponent.velocityComponent.SetDirection(jumpDirection);
+        pathfindingComponent.velocityComponent.SetSpeedModifier(2.0f);
+
+        await ToSignal(GetTree().CreateTimer(0.5), "timeout");
+
+        pathfindingComponent.velocityComponent.SetSpeedModifier(0f);
+        _animatedSprite.Play("Idle");
+        await ToSignal(GetTree().CreateTimer(0.5), "timeout");
+
+        pathfindingComponent.PauseNagivation(false);
+        bbSimpleStateMachine.TransitionTo("Walk");
+    }
+    // ===========================
+
+    private void OnHit(HurtboxComponent hurtbox, int amount)
+    {
+        var target = hurtbox.GetOwner();
+
+        if (target is Player)
+            hurtbox.ApplyDamage(amount);
     }
 
-    public void Attack_physics_process(float delta)
+    private void UpdateSpriteDirection()
     {
-        if (Position.DistanceTo(_player.Position) > AttackRange)
-        {
-            bbSimpleStateMachine.TransitionTo("Walk");
-        }
+        _animatedSprite.FlipH = _player.GlobalPosition.X < GlobalPosition.X;
     }
 }

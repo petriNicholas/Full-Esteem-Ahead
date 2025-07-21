@@ -112,6 +112,7 @@ sources/0 = SubResource("TileSetAtlasSource_bhk1t")
 [node name="Spawner" parent="." instance=ExtResource("1_eqohb")]
 position = Vector2(61, 391)
 _enemyScene = ExtResource("2_y7ifc")
+_maxEnemyCnt = 0
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_07125")]
 position = Vector2(56, 325)
