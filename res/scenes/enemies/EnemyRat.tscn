@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://ckb4b2cghri65"]
 
-[ext_resource type="Script" uid="uid://ciq4p8l8wtykr" path="res://src/EnemyRat.cs" id="1_tn2up"]
+[ext_resource type="Script" uid="uid://ciq4p8l8wtykr" path="res://src/enemies/EnemyRat.cs" id="1_tn2up"]
 [ext_resource type="Texture2D" uid="uid://dikv1r65q6ddy" path="res://res/assets/enemies/EnemyRat.png" id="1_vwosk"]
 [ext_resource type="Script" uid="uid://dlv10sx4tnj1h" path="res://src/components/VelocityComponent.cs" id="2_trbl0"]
 [ext_resource type="PackedScene" uid="uid://wknolwuu6ceo" path="res://res/components/HitboxComponent.tscn" id="3_xe2bc"]

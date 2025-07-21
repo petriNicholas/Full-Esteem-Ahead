@@ -1,14 +1,14 @@
 [gd_scene load_steps=9 format=4 uid="uid://bnahx2i13jc41"]
 
-[ext_resource type="PackedScene" uid="uid://dd6toludvs812" path="res://res/scenes/Player.tscn" id="1_3smrk"]
-[ext_resource type="PackedScene" uid="uid://bjl6sea27nvlx" path="res://res/scenes/levels/ArenaGround.tscn" id="1_07125"]
-[ext_resource type="PackedScene" uid="uid://ctsfphk37vc6e" path="res://res/scenes/environment/Spawner.tscn" id="1_eqohb"]
-[ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/scenes/enemies/EnemyRat.tscn" id="2_y7ifc"]
-[ext_resource type="Texture2D" uid="uid://dy7x278nxjpeg" path="res://res/assets/environment/stone_floor_4x4plus3.png" id="4_jd11j"]
-[ext_resource type="TileSet" uid="uid://mg8s0xmi0u82" path="res://res/assets/tres/Interior.tres" id="5_2i3hc"]
+[ext_resource type="PackedScene" uid="uid://ctsfphk37vc6e" path="res://res/scenes/environment/Spawner.tscn" id="1_xaou8"]
+[ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/scenes/enemies/EnemyRat.tscn" id="2_gb7uu"]
+[ext_resource type="PackedScene" uid="uid://bjl6sea27nvlx" path="res://res/scenes/levels/ArenaGround.tscn" id="3_k1chf"]
+[ext_resource type="PackedScene" uid="uid://dd6toludvs812" path="res://res/scenes/Player.tscn" id="4_i7q3p"]
+[ext_resource type="Texture2D" uid="uid://dy7x278nxjpeg" path="res://res/assets/environment/stone_floor_4x4plus3.png" id="5_53yyj"]
+[ext_resource type="TileSet" uid="uid://mg8s0xmi0u82" path="res://res/assets/tres/Interior.tres" id="6_hqj87"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bhk1t"]
-texture = ExtResource("4_jd11j")
+texture = ExtResource("5_53yyj")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -109,18 +109,18 @@ sources/0 = SubResource("TileSetAtlasSource_bhk1t")
 
 [node name="Game" type="Node"]
 
-[node name="Spawner" parent="." instance=ExtResource("1_eqohb")]
+[node name="Spawner" parent="." instance=ExtResource("1_xaou8")]
 position = Vector2(61, 391)
-_enemyScene = ExtResource("2_y7ifc")
+_enemyScene = ExtResource("2_gb7uu")
 _maxEnemyCnt = 0
 
-[node name="TileMapLayer" parent="." instance=ExtResource("1_07125")]
+[node name="TileMapLayer" parent="." instance=ExtResource("3_k1chf")]
 position = Vector2(56, 325)
 
-[node name="Rat" parent="." instance=ExtResource("2_y7ifc")]
+[node name="Rat" parent="." instance=ExtResource("2_gb7uu")]
 position = Vector2(501, 220)
 
-[node name="Player" parent="." instance=ExtResource("1_3smrk")]
+[node name="Player" parent="." instance=ExtResource("4_i7q3p")]
 position = Vector2(323, 315)
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
@@ -131,4 +131,4 @@ tile_set = SubResource("TileSet_47upa")
 [node name="Interior" type="TileMapLayer" parent="."]
 scale = Vector2(3, 3)
 tile_map_data = PackedByteArray("AAAbABUAAAAAAAEAAAALAAYAAAADAAEAAAAPAAYAAAADAAEAAAASAAcAAAAEAAEAAAASAAYAAAAEAAAAAAAPAAQAAAACAAAAAAAQAAQAAAADAAAAAAAfAAEAAAAEAAEAAAAfAAAAAAAEAAAAAAA=")
-tile_set = ExtResource("5_2i3hc")
+tile_set = ExtResource("6_hqj87")
