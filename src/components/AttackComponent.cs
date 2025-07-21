@@ -24,6 +24,4 @@ public partial class AttackComponent : Node2D
 
         GetTree().CurrentScene.AddChild(bullet);
     }
-
-
 }

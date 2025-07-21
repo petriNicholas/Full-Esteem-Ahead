@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dd6toludvs812"]
+[gd_scene load_steps=19 format=3 uid="uid://dd6toludvs812"]
 
 [ext_resource type="Script" uid="uid://q6qbi1gaf3le" path="res://src/Player.cs" id="1_m3vse"]
 [ext_resource type="Texture2D" uid="uid://b3gkwb57dfvrx" path="res://res/assets/Walking_disarmed_spritesheet.png" id="2_6eyll"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d2cne26t58ulq" path="res://res/components/HealthComponent.tscn" id="4_7g848"]
 [ext_resource type="PackedScene" uid="uid://342h6qes3epi" path="res://res/components/HurtboxComponent.tscn" id="5_pi74v"]
 [ext_resource type="PackedScene" uid="uid://dx37q3qt2mexf" path="res://res/components/InputComponent.tscn" id="5_xfqqa"]
-[ext_resource type="PackedScene" uid="uid://gyi1ujt7e1rv" path="res://res/components/VisualCuesComponent.tscn" id="7_gji2c"]
 [ext_resource type="Script" uid="uid://bp4ogl41idedl" path="res://src/Camera.cs" id="8_fmvjq"]
 [ext_resource type="PackedScene" uid="uid://l3ohjpd04wsm" path="res://res/components/AttackComponent.tscn" id="9_68n4g"]
 
@@ -103,7 +102,6 @@ autoplay = "Stand"
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("HealthComponent") instance=ExtResource("5_pi74v")]
 HealthComponent = NodePath("../HealthComponent")
-VisualCuesComponent = ExtResource("7_gji2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_3obg4")
