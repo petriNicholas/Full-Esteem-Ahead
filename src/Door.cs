@@ -5,26 +5,41 @@ namespace Game.Scenes;
 
 public partial class Door : Area2D
 {
-	[Export] public string ScenePath = "";
+	[Export] public string TargetScenePath = "";
+    [Export] public string PlayerScenePath = "";
 
-	public override void _Ready()
-	{
-		BodyEntered += OnBodyEntered;
-	}
+    private bool _playerInside = false;
 
+    public override void _Ready()
+    {
+        BodyEntered += OnBodyEntered;
+        BodyExited += OnBodyExited;
+    }
 
-	private void OnBodyEntered(Node2D body)
-	{
-		if (body is Player)
-		{
-		}
-	}
+    private void OnBodyEntered(Node2D body)
+    {
+        if (body is Player)
+        {
+            _playerInside = true;
+        }
+    }
 
-	public override void _Process(double delta)
-	{
-		if (Input.IsActionJustPressed("interact") && ScenePath != "")
-		{
-			SceneLoader.Instance.ChangeSceneWithFade(ScenePath);
-		}
-	}
+    private void OnBodyExited(Node2D body)
+    {
+        if (body is Player)
+        {
+            _playerInside = false;
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_playerInside && Input.IsActionJustPressed("interact"))
+        {
+            if (!string.IsNullOrEmpty(TargetScenePath))
+            {
+                SceneLoader.Instance.ChangeSceneAndSpawnPlayer(TargetScenePath, PlayerScenePath);
+            }
+        }
+    }
 }

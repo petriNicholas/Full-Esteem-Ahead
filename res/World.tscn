@@ -134,4 +134,5 @@ tile_set = ExtResource("5_2i3hc")
 
 [node name="Door" parent="." instance=ExtResource("7_r415g")]
 position = Vector2(721, 234)
-ScenePath = "res://res/Level1.tscn"
+TargetScenePath = "res://res/Player.tscn"
+PlayerScenePath = "res://res/Level1.tscn"

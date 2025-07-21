@@ -6,6 +6,7 @@
 script = ExtResource("1_ovg08")
 
 [node name="Fade" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Fade"]
 offset_right = 40.0
