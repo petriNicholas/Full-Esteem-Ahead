@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx3pu3gfw6qsk"]
+
+[ext_resource type="Script" uid="uid://cswqfjfdypuxv" path="res://src/autoloads/SceneLoader.cs" id="1_ovg08"]
+
+[node name="SceneLoader" type="Node"]
+script = ExtResource("1_ovg08")
+
+[node name="Fade" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Fade"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
