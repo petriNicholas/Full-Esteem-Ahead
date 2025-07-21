@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Door : Area2D
 {
@@ -14,7 +13,6 @@ public partial class Door : Area2D
     {
         if (body is Game.Player)
         {
-            // Tu można wyświetlić prompt "Naciśnij E"
         }
     }
 
