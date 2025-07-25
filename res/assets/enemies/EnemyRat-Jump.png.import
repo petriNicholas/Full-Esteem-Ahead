@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx8nmln6ug82d"
-path="res://.godot/imported/bullet.png-721ec59c11f3e41d8bec77ca753df59f.ctex"
+uid="uid://droyvkjipxn6k"
+path="res://.godot/imported/EnemyRat-Jump.png-b4854b0e6f4abccbfc767c8e81ba7a9f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/assets/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-721ec59c11f3e41d8bec77ca753df59f.ctex"]
+source_file="res://res/assets/enemies/EnemyRat-Jump.png"
+dest_files=["res://.godot/imported/EnemyRat-Jump.png-b4854b0e6f4abccbfc767c8e81ba7a9f.ctex"]
 
 [params]
 
