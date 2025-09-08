@@ -6,37 +6,49 @@ public partial class SceneLoader : Node
 {
 	public static SceneLoader Instance { get; private set; }
 
-    public override void _Notification(int what)
+	public override void _Notification(int what)
+	{
+		if (what == NotificationSceneInstantiated)
+		{
+			Instance = this;
+		}
+	}
+
+	public async void ChangeSceneAndSpawnPlayer(string targetScenePath, string playerScenePath)
     {
-        if (what == NotificationSceneInstantiated)
+        // zmiana sceny
+        GetTree().ChangeSceneToFile(targetScenePath);
+
+        // poczekaj jedną klatkę aż nowa scena się załaduje
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+
+        // załaduj gracza
+        var playerScene = GD.Load<PackedScene>(playerScenePath);
+        if (playerScene == null)
         {
-            Instance = this;
+            GD.PrintErr($"Nie udało się załadować sceny gracza: {playerScenePath}");
+            return;
+        }
+
+        var player = playerScene.Instantiate<Node2D>();
+
+        // weź główny root nowej sceny
+        var currentScene = GetTree().CurrentScene;
+        if (currentScene == null)
+        {
+            GD.PrintErr("Brak aktywnej sceny po zmianie!");
+            return;
+        }
+
+        // dodaj gracza do nowej sceny
+        currentScene.AddChild(player);
+
+        // opcjonalnie ustaw startową pozycję (np. drzwi startowe, spawn point)
+        // tutaj "PlayerSpawn" to Node2D w docelowej scenie
+        var spawn = currentScene.GetNodeOrNull<Node2D>("PlayerSpawn");
+        if (spawn != null)
+        {
+            player.Position = spawn.Position;
         }
     }
-
-	public async void ChangeSceneAndSpawnPlayer(string pathToScene, string pathToPlayerScene)
-	{
-		// 1. Wczytaj nową scenę
-		var err = GetTree().ChangeSceneToFile(pathToScene);
-
-		// 2. Poczekaj 1 klatkę aż scena się załaduje
-		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-		// 3. Znajdź spawn point
-		var currentScene = GetTree().CurrentScene;
-		var spawnPoint = currentScene.GetNodeOrNull<Node2D>("PlayerSpawnPoint");
-
-		if (spawnPoint == null)
-		{
-			GD.PushError("PlayerSpawn not found in loaded scene.");
-			return;
-		}
-
-		// 4. Załaduj i dodaj gracza
-		var playerScene = GD.Load<PackedScene>(pathToPlayerScene);
-		var player = playerScene.Instantiate<Node2D>();
-
-		currentScene.AddChild(player);
-		player.GlobalPosition = spawnPoint.GlobalPosition;
-	}
 }

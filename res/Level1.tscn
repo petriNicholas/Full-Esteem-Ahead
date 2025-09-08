@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=4 uid="uid://d0olv48231uwo"]
+[gd_scene load_steps=3 format=4 uid="uid://bur0jth8g1nj5"]
 
 [ext_resource type="TileSet" uid="uid://5sfnm8gjpbb0" path="res://res/tres/Ground.tres" id="1_m2smf"]
 [ext_resource type="PackedScene" uid="uid://ckb4b2cghri65" path="res://res/enemies/EnemyRat.tscn" id="2_ev3bm"]
@@ -10,7 +10,6 @@ tile_map_data = PackedByteArray("AAAHAAMAAAACAAEAAAAHAAIAAAACAAAAAAAGAAMAAAACAAE
 tile_set = ExtResource("1_m2smf")
 
 [node name="Rat" parent="." instance=ExtResource("2_ev3bm")]
-position = Vector2(338, 238)
 
-[node name="PlayerSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(208, 78)
+[node name="PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(207, 62)
