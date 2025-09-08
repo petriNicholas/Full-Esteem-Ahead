@@ -18,18 +18,12 @@ public partial class Door : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
-        if (body is Player)
-        {
-            _playerInside = true;
-        }
+        _playerInside = true;
     }
 
     private void OnBodyExited(Node2D body)
     {
-        if (body is Player)
-        {
-            _playerInside = false;
-        }
+        _playerInside = false;
     }
 
     public override void _Process(double delta)

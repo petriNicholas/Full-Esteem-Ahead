@@ -22,15 +22,8 @@ public partial class EnemyRat : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        if (_player == null)
-        {
-            var players = GetTree().GetNodesInGroup("player");
-            if (players.Count > 0)
-            {
-                _player = players[0] as Node2D;
-                pathfindingComponent.SetTarget(_player);
-            }
-        }
+        _player = GetNode<Node2D>("../Player");
+        pathfindingComponent.SetTarget(_player);
     }
 
     // ====== Stan "Walk" ======

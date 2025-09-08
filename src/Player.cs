@@ -13,7 +13,6 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
-        AddToGroup("player");
         _animatedSprite = GetNode<AnimatedSprite2D>("WalkAnimation");
         _animatedSprite.Play("default");
     }
