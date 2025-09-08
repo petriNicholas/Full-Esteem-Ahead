@@ -17,10 +17,20 @@ public partial class EnemyRat : CharacterBody2D
         _animatedSprite = GetNode<AnimatedSprite2D>("RatAnimation");
         _animatedSprite.Play("Walk");
 
-        _player = GetNode<Node2D>("../Player");
-        pathfindingComponent.SetTarget(_player);
-
         hitboxComponent.Hit += OnHit;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (_player == null)
+        {
+            var players = GetTree().GetNodesInGroup("player");
+            if (players.Count > 0)
+            {
+                _player = players[0] as Node2D;
+                pathfindingComponent.SetTarget(_player);
+            }
+        }
     }
 
     // ====== Stan "Walk" ======

@@ -14,7 +14,6 @@ tile_map_data = PackedByteArray("AAAAAP//AAACAAEAAAABAP7/AAACAAEAAAABAP3/AAACAAE
 tile_set = ExtResource("1_sckud")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_cbusq")
 
 [node name="ShadowTerrain" type="TileMapLayer" parent="."]
